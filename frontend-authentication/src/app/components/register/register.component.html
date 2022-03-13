@@ -1,0 +1,64 @@
+<div class="bootstrap-wrapper">
+    <div class="container mt">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                
+
+                 <!-- Form field-->
+                <div class="form-field">
+                    <div class="container text-center">
+                        <img src="/assets/login.png" alt="" class="img-fluid" style="width: 100px; ">
+                    </div>
+                    <br><br>
+                    <form (ngSubmit)="onRegister()">
+                        <mat-form-field class="full-width" appearance="legacy" color="primary">
+                            <mat-label class="labels"> Enter your email </mat-label>
+                            <mat-icon matPrefix class="icons">email</mat-icon>
+                            <input [(ngModel)]="credentials.email" name="email" type="email" matInput [formControl]="email" required />
+                            <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field class="full-width" appearance="legacy" color="primary">
+                            <mat-label class="labels">Enter your username </mat-label>
+                            <mat-icon matPrefix class="icons">supervised_user_circle</mat-icon> 
+                            <input [(ngModel)]="credentials.username" name="username" type="text" matInput [formControl]="username" required pattern="[a-zA-Z]+"/>
+                            <mat-error *ngIf="username.invalid">{{getErrorUsernameMessage()}}</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field class="full-width" appearance="legacy">
+                            <mat-label class="labels"> Password </mat-label>
+                            <mat-icon matPrefix class="icons">lock</mat-icon>
+                            <input [(ngModel)]="credentials.password" name="password" matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required 
+                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon class="icon-hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="password.invalid">{{getErrorPasswordMessage()}}</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field class="full-width" appearance="legacy">
+                            <mat-label class="labels"> Confirm password </mat-label>
+                            <mat-icon matPrefix class="icons">lock</mat-icon>
+                            <input [(ngModel)]="credentials.confirmPassword" name="confirmPassword" matInput [type]="hide ? 'password' : 'text'" [formControl]="confirmPassword" required 
+                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
+                            <!-- <mat-error *ngIf="confirmPassword.invalid">{{getErrorPasswordsNotMatch()}}</mat-error>  confirmPassword.hasError('matching')-->
+                            <mat-error *ngIf="confirmPassword.value !== password.value">
+                                Password must match.
+                                </mat-error>
+                        </mat-form-field>
+                        <br>
+                        <div class="container text-center">
+                            <button type="submit" mat-raised-button class="loginButton">Register</button>
+                            <br><br>
+                            <a>Do you have already an account? <a routerLink="/login">Login here</a></a>
+                        </div>
+                        
+                    </form>
+
+                    {{credentials | json}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

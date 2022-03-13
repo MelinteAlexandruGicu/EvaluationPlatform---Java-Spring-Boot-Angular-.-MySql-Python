@@ -1,0 +1,16 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.example-spacer-center{
+    flex: 0 1 800px;
+}
+
+.design{
+    background-color: #3D3D53;
+    color: #FF6600;
+}
+
+a {
+    font-family: "Trirong", serif;
+}

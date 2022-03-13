@@ -1,0 +1,52 @@
+.full-width{
+    width: 100%;
+    margin-bottom: 30px;
+}
+.labels {
+    color: #FF6600;
+    font-size: 20px;
+    font-weight:500;
+    padding-left: 10px;
+    font-family: "Trirong", serif;
+}
+
+.loginButton {
+    background-color: #3D3D53;
+    font-size:25px;
+    font-family: "Trirong", serif;
+}
+
+.form-field {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #3D3D53;
+}
+
+.icon-hide {
+    transform: scale(1.5);
+    color: #3D3D53;
+}
+
+.icons {
+    transform: scale(1.2);
+    color: #3D3D53;
+}
+
+.mat-success {
+    color: green;
+}
+
+input {
+    padding-left: 8px;
+    font-size: 18px;
+    font-family: "Trirong", serif;
+    color: #3D3D53;
+}
+
+a {
+    font-family: "Trirong", serif;
+}
