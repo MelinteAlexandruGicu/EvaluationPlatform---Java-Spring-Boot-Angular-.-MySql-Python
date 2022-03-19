@@ -8,23 +8,36 @@
                         <img src="/assets/login.png" alt="" class="img-fluid" style="width: 100px; ">
                     </div>
                     <br><br>
-                    <form (ngSubmit)="onSubmit()">
+                    <form 
+                    *ngIf="!isLoggedIn"
+                    name="form"
+                    (ngSubmit)="f.form.valid && onSubmit()"
+                    #f="ngForm"
+                    novalidate>
                         <mat-form-field class="full-width" appearance="legacy" color="primary">
-                            <mat-label class="labels"> Enter your email </mat-label>
-                            <mat-icon matPrefix class="icons">email</mat-icon>
-                            <input [(ngModel)]="credentials.email" name="email" type="email" matInput [formControl]="email" required />
-                            <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
+                            <mat-label class="labels"> Enter your username </mat-label>
+                            <mat-icon matPrefix class="icons">supervised_user_circle</mat-icon>
+                            <input [(ngModel)]="form.username" name="username" type="text" matInput 
+                            required pattern="[a-zA-Z0-9]+"
+                            minlength="6"
+                            maxlength="20"
+                            #username="ngModel"/>
+                            <mat-error *ngIf="username.hasError('minlength')">Username must be at least 6 characters</mat-error>
+                            <mat-error *ngIf="username.hasError('required')">Username is required</mat-error>
+                            <mat-error *ngIf="username.hasError('pattern')">Username must be a valid username</mat-error>
                         </mat-form-field>
                         <br>
                         <mat-form-field class="full-width" appearance="legacy">
                             <mat-label class="labels"> Password </mat-label>
                             <mat-icon matPrefix class="icons">lock</mat-icon>
-                            <input [(ngModel)]="credentials.password" name="password" matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required 
-                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
-                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <input [(ngModel)]="form.password" name="password" matInput [type]="hide ? 'password' : 'text'" required 
+                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+                            #password="ngModel"/>
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
                                 <mat-icon class="icon-hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                            <mat-error *ngIf="password.invalid">{{getErrorPasswordMessage()}}</mat-error>
+                            <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
+                            <mat-error *ngIf="password.hasError('pattern')">Password must be a valid password</mat-error>
                         </mat-form-field>
                         <br>
                         <div class="container text-center">
@@ -32,10 +45,21 @@
                             <br><br>
                             <a>Don't you have already an account? <a routerLink="/register">Register here</a></a>
                         </div>
+                        <div class="form-group">
+                            <div
+                              class="alert alert-danger"
+                              role="alert"
+                              *ngIf="f.submitted && isLoginFailed"
+                            >
+                              Login failed: {{ errorMessage }}
+                            </div>
+                          </div>
                         
                     </form>
-
-                    {{credentials | json}}
+                    <div class="alert alert-success" *ngIf="isLoggedIn">
+                        Logged in as {{ roles }}.
+                      </div>
+                    {{form | json}}
                 </div>
 
             </div>

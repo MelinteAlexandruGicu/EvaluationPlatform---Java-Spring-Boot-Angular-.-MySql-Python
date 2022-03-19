@@ -2,62 +2,82 @@
     <div class="container mt">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                
-
                  <!-- Form field-->
                 <div class="form-field">
                     <div class="container text-center">
                         <img src="/assets/login.png" alt="" class="img-fluid" style="width: 100px; ">
                     </div>
                     <br><br>
-                    <form (ngSubmit)="onRegister()">
+                    <form 
+                    *ngIf="!isSuccessful"
+                    name="form"
+                    (ngSubmit)="f.form.valid && onRegister()"
+                    #f="ngForm"
+                    novalidate>
                         <mat-form-field class="full-width" appearance="legacy" color="primary">
                             <mat-label class="labels"> Enter your email </mat-label>
                             <mat-icon matPrefix class="icons">email</mat-icon>
-                            <input [(ngModel)]="credentials.email" name="email" type="email" matInput [formControl]="email" required />
-                            <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
+                            <input [(ngModel)]="form.email" name="email" type="email" matInput required email
+                            #email="ngModel" />
+                            <mat-error *ngIf="email.hasError('email')">Email must be a valid email address</mat-error>
+                            <mat-error *ngIf="email.hasError('required')">Email is required</mat-error>
+                            <mat-icon matSuffix class="icons" *ngIf="email.valid" [ngStyle]="{'color':'green'}">done</mat-icon>
                         </mat-form-field>
                         <br>
                         <mat-form-field class="full-width" appearance="legacy" color="primary">
                             <mat-label class="labels">Enter your username </mat-label>
                             <mat-icon matPrefix class="icons">supervised_user_circle</mat-icon> 
-                            <input [(ngModel)]="credentials.username" name="username" type="text" matInput [formControl]="username" required pattern="[a-zA-Z]+"/>
-                            <mat-error *ngIf="username.invalid">{{getErrorUsernameMessage()}}</mat-error>
+                            <input [(ngModel)]="form.username" name="username" type="text" matInput 
+                            required pattern="[a-zA-Z0-9]+"
+                            minlength="6"
+                            maxlength="20"
+                            #username="ngModel"/>
+                            <mat-error *ngIf="username.hasError('minlength')">Username must be at least 6 characters</mat-error>
+                            <mat-error *ngIf="username.hasError('required')">Username is required</mat-error>
+                            <mat-error *ngIf="username.hasError('pattern')">Username must be a valid username</mat-error>
+                            <mat-icon matSuffix class="icons" *ngIf="username.valid" [ngStyle]="{'color':'green'}">done</mat-icon>
                         </mat-form-field>
                         <br>
                         <mat-form-field class="full-width" appearance="legacy">
                             <mat-label class="labels"> Password </mat-label>
                             <mat-icon matPrefix class="icons">lock</mat-icon>
-                            <input [(ngModel)]="credentials.password" name="password" matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required 
-                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
-                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <input [(ngModel)]="form.password" name="password" matInput [type]="hide ? 'password' : 'text'" required 
+                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+                            #password="ngModel"/>
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
                                 <mat-icon class="icon-hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                            <mat-error *ngIf="password.invalid">{{getErrorPasswordMessage()}}</mat-error>
+                            <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
+                            <mat-error *ngIf="password.hasError('pattern')">Password must be a valid password</mat-error>
+                            <mat-icon matSuffix class="icons" *ngIf="password.valid" [ngStyle]="{'color':'green'}">done</mat-icon>
                         </mat-form-field>
                         <br>
                         <mat-form-field class="full-width" appearance="legacy">
                             <mat-label class="labels"> Confirm password </mat-label>
                             <mat-icon matPrefix class="icons">lock</mat-icon>
-                            <input [(ngModel)]="credentials.confirmPassword" name="confirmPassword" matInput [type]="hide ? 'password' : 'text'" [formControl]="confirmPassword" required 
-                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
-                            <!-- <mat-error *ngIf="confirmPassword.invalid">{{getErrorPasswordsNotMatch()}}</mat-error>  confirmPassword.hasError('matching')-->
-                            <mat-error *ngIf="confirmPassword.value !== password.value">
-                                Password must match.
-                                </mat-error>
+                            <input [(ngModel)]="form.confirmPassword" name="confirmPassword" matInput [type]="hide ? 'password' : 'text'" required 
+                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+                            #confirmPassword="ngModel">
+                            <mat-error *ngIf="confirmPassword.hasError('required')">Confirm password is required</mat-error>
+                            <mat-error *ngIf="form.confirmPassword != form.password">Confirm password doesn't match</mat-error>
+                            <mat-icon matSuffix class="icons" *ngIf="confirmPassword.valid" [ngStyle]="{'color':'green'}">done</mat-icon>
                         </mat-form-field>
                         <br>
                         <div class="container text-center">
                             <button type="submit" mat-raised-button class="loginButton">Register</button>
+                            <div class="alert alert-warning" *ngIf="isSignUpFailed">
+                                Register failed!<br />{{ errorMessage }}
+                            </div>
                             <br><br>
                             <a>Do you have already an account? <a routerLink="/login">Login here</a></a>
                         </div>
-                        
                     </form>
+                    <div class="alert alert-success" *ngIf="isSuccessful">
+                        Your registration is successful!
+                    </div>
 
-                    {{credentials | json}}
+                    {{form | json}}
                 </div>
-
             </div>
         </div>
     </div>

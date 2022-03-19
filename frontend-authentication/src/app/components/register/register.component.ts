@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { matchValidator } from 'src/app/functions/form-validators';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -9,85 +10,69 @@ import { matchValidator } from 'src/app/functions/form-validators';
 })
 export class RegisterComponent implements OnInit {
 
-
-  email = new FormControl('', 
-  [
-    Validators.required,
-    Validators.email
-  ]);
-  username = new FormControl('', 
-  [
-    Validators.required, 
-    Validators.pattern("[a-zA-Z]+")
-  ]);
-  password = new FormControl('', 
-    [
-      Validators.required, 
-      Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"),
-      matchValidator('confirmPassword', true)
-    ]);
-  confirmPassword = new FormControl('', 
-  [
-    Validators.required, 
-    Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"),
-    matchValidator('password')
-  ]);
-  hide = true;
-  credentials = {
-    email: '', 
-    username: '',
-    password: '', 
-    confirmPassword: ''
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
+  // form: FormGroup;
+  form: any = {
+    username: null,
+    email: null,
+    password: null,
+    confirmPassword: null
   }
+  // form = new FormGroup({
+  //   email: new FormControl(
+  //     [
+  //       '',
+  //       Validators.required,
+  //       Validators.email
+  //     ]
+  //   ),
+  //   username: new FormControl(
+  //     [
+  //       '',
+  //       Validators.required, 
+  //       Validators.pattern("[a-zA-Z0-9]+")
+  //     ]
+  //   ),
+  //   password: new FormControl(
+  //     [
+  //       '',
+  //       Validators.required, 
+  //       Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"),
+  //       matchValidator('confirmPassword', true)
+  //     ]
+  //   ),
+  //   confirmPassword: new FormControl(
+  //     [
+  //       '',
+  //       Validators.required, 
+  //       Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"),
+  //       matchValidator('password')
+  //     ]
+  //   )
+  // });
+  
+  hide = true;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  getErrorEmailMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
-
-  getErrorUsernameMessage() {
-    if (this.username.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.username.hasError('pattern') ? 'Not a valid username' : '';
-  }
-
-  getErrorPasswordMessage() {
-    if (this.password.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return (this.password.hasError('pattern')) ? 'Not a valid password' : '';
-  }
-
-  // getErrorPasswordsNotMatch() {
-  //   if (this.confirmPassword.hasError('required')) {
-  //     return 'You must enter a value';
-  //   }
-
-  //   if(this.confirmPassword.hasError('pattern')) {
-  //     return 'Not a valid password'; 
-  //   }
-
-  //   return (this.confirmPassword.value !== this.password.value) ? 'Passwords should be the same!' : 'Ana are mere';
-  // }
-
   onRegister() {
-    console.log("Register was sent!")
-    if((this.credentials.email != '' && this.credentials.password != '') && (this.credentials.email != null && this.credentials.password != null)) {
-      console.log("We have to submit to server!");
-    }
-    else {
-      console.error("Fields are required");
-    }
+    console.log("Register was sent!");
+    const { username, email, password, confirmPassword } = this.form;
+    this.authService.register(username, email, password, confirmPassword).subscribe(
+      data => {
+        console.log(data);
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
+      }
+    );
   }
 }

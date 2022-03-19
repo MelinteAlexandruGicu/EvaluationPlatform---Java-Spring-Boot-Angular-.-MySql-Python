@@ -13,9 +13,15 @@ import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatIconModule} from '@angular/material/icon';
-import { CopyrightComponent } from './components/copyright/copyright.component'; 
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatIconModule} from '@angular/material/icon';
+import { CopyrightComponent } from './components/copyright/copyright.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { BoardAdminComponent } from './components/board-admin/board-admin.component';
+import { BoardTeacherComponent } from './components/board-teacher/board-teacher.component';
+import { BoardStudentComponent } from './components/board-student/board-student.component';
+import { authInterceptorProviders } from './helpers/auth.interceptor'; 
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +31,11 @@ import { CopyrightComponent } from './components/copyright/copyright.component';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    CopyrightComponent
+    CopyrightComponent,
+    ProfileComponent,
+    BoardAdminComponent,
+    BoardTeacherComponent,
+    BoardStudentComponent
   ],
   imports: [
     BrowserModule,
@@ -38,8 +48,9 @@ import { CopyrightComponent } from './components/copyright/copyright.component';
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
