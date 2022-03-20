@@ -21,7 +21,7 @@ export class AuthService {
     }, httpOptions);
   }
 
-  register(username: FormControl, email: FormControl, password: FormControl, cPassword: FormControl): Observable<any> {
+  register(username: string, email: string, password: string, cPassword: string): Observable<any> {
     return this.http.post(AUTH_API + '/register', {
       username,
       email,
@@ -29,9 +29,9 @@ export class AuthService {
       cPassword
     }, httpOptions);
   }
-  logout(): Observable<any> {
-    return this.http.post(AUTH_API + '/logout', {
-    }, httpOptions);
-  }
+  // logout(): Observable<any> {
+  //   return this.http.post(AUTH_API + '/logout', {
+  //   }, httpOptions);
+  // }
 
 }

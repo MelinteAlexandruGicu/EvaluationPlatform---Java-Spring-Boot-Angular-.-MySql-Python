@@ -22,6 +22,7 @@ import { BoardTeacherComponent } from './components/board-teacher/board-teacher.
 import { BoardStudentComponent } from './components/board-student/board-student.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor'; 
 import { HttpClientModule } from '@angular/common/http';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { HttpClientModule } from '@angular/common/http';
     ProfileComponent,
     BoardAdminComponent,
     BoardTeacherComponent,
-    BoardStudentComponent
+    BoardStudentComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
