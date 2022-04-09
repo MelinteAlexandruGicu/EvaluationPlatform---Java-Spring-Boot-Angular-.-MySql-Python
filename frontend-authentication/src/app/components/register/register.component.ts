@@ -20,40 +20,7 @@ export class RegisterComponent implements OnInit {
     password: null,
     confirmPassword: null
   }
-  // form = new FormGroup({
-  //   email: new FormControl(
-  //     [
-  //       '',
-  //       Validators.required,
-  //       Validators.email
-  //     ]
-  //   ),
-  //   username: new FormControl(
-  //     [
-  //       '',
-  //       Validators.required, 
-  //       Validators.pattern("[a-zA-Z0-9]+")
-  //     ]
-  //   ),
-  //   password: new FormControl(
-  //     [
-  //       '',
-  //       Validators.required, 
-  //       Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"),
-  //       matchValidator('confirmPassword', true)
-  //     ]
-  //   ),
-  //   confirmPassword: new FormControl(
-  //     [
-  //       '',
-  //       Validators.required, 
-  //       Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"),
-  //       matchValidator('password')
-  //     ]
-  //   )
-  // });
-  
-  hide = true;
+    hide = true;
 
   constructor(private authService: AuthService) { }
 

@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   public isLoggedIn = false;
   public showAdminBoard = false;
   public showTeacherBoard = false;
+  public showStudentBoard = false;
   public username?: string;
   public href: string = "";
 
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
       this.roles = user.roles;
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showTeacherBoard = this.roles.includes('ROLE_TEACHER');
+      this.showStudentBoard = this.roles.includes('ROLE_STUDENT');
       this.username = user.username;
     }
   }

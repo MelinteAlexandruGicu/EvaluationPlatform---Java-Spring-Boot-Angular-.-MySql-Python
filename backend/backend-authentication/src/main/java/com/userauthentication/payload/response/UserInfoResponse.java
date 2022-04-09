@@ -1,7 +1,6 @@
 package com.userauthentication.payload.response;
 
 import lombok.Data;
-
 import java.util.List;
 
 @Data

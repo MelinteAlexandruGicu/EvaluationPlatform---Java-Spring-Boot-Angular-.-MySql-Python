@@ -1,0 +1,38 @@
+.titles{
+    padding-top: 1px !important;
+    background-color: #3D3D53 !important;
+    padding-bottom: 1px !important; 
+}
+
+.week {
+    color: #3D3D53;
+    border-left: 4px solid #3D3D53 ;
+    padding: 1em;
+    margin: 1em auto;
+}
+
+.description {
+    color: #3D3D53;
+}
+
+.mat-expansion-panel-header {
+    color: #3D3D53;
+}
+.mat-expansion-panel {
+    background-color: #fffcf5 !important;
+    color: #3D3D53;
+    padding-bottom: 10px;
+}
+
+i {
+    color:red;
+}
+
+li{
+    background: #fff;
+    border-left: 4px solid #3D3D53 ;
+    padding: 1em;
+    margin: 1em auto;
+    color: #666;
+    font-family: "Raleway";
+   }

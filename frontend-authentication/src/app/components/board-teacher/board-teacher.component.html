@@ -1,9 +1,50 @@
-<h1>Materii la care sunt implicat: </h1>
 <h2>Vezi situatia studentilor mai jos de la toate materiile</h2>
-<ul>
-    <li>Materia 1 - link -> afisare din baza de date + filtrare studenti -> adauga curs/lab/test -> evalueaza student</li>
-    <li>Materia 2 - link -> afisare din baza de date + filtrare studenti -> adauga curs/lab/test -> evalueaza student</li>
-    <li>Materia 3 - link -> afisare din baza de date + filtrare studenti -> adauga curs/lab/test -> evalueaza student</li>
-    <li>Materia 4 - link -> afisare din baza de date + filtrare studenti -> adauga curs/lab/test -> evalueaza student</li>
-    <li>Materia 5 - link -> afisare din baza de date + filtrare studenti -> adauga curs/lab/test -> evalueaza student</li>
-</ul>
+<div>
+    <p>Materia 1 - link -> afisare din baza de date + filtrare studenti -> adauga curs/lab/test -> evalueaza student</p>
+    <p>Materia 2 - link -> afisare din baza de date + filtrare studenti -> adauga curs/lab/test -> evalueaza student</p>
+    <p>Materia 3 - link -> afisare din baza de date + filtrare studenti -> adauga curs/lab/test -> evalueaza student</p>
+    <p>Materia 4 - link -> afisare din baza de date + filtrare studenti -> adauga curs/lab/test -> evalueaza student</p>
+    <p>Materia 5 - link -> afisare din baza de date + filtrare studenti -> adauga curs/lab/test -> evalueaza student</p>
+</div>
+
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header class="titles">
+        <mat-panel-title>
+          Applications
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <br>
+      <app-upload></app-upload>
+    </mat-expansion-panel>
+</mat-accordion> 
+
+<br>
+
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header class="titles">
+        <mat-panel-title>
+          Courses
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <br>
+      <course-upload></course-upload>
+    </mat-expansion-panel>
+</mat-accordion>
+
+<br>
+
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header class="titles">
+        <mat-panel-title>
+          Tests & Grades
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+</mat-accordion>
+

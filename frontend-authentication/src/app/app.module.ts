@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -22,12 +21,13 @@ import { BoardTeacherComponent } from './components/board-teacher/board-teacher.
 import { BoardStudentComponent } from './components/board-student/board-student.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor'; 
 import { HttpClientModule } from '@angular/common/http';
-import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { AppUploadComponent } from './components/app-upload/app-upload.component'; 
+import { MatExpansionModule } from '@angular/material/expansion';
+import { CourseUploadComponent } from './components/course-upload/course-upload.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent,
     HomeComponent,
     LoginComponent,
     RegisterComponent,
@@ -37,7 +37,8 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     BoardAdminComponent,
     BoardTeacherComponent,
     BoardStudentComponent,
-    FileUploadComponent
+    AppUploadComponent,
+    CourseUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +51,8 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    MatExpansionModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

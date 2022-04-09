@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FileUploadService } from 'src/app/services/file-upload.service';
 
 @Component({
   selector: 'app-board-student',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./board-student.component.css']
 })
 export class BoardStudentComponent implements OnInit {
-
-  constructor() { }
-
+  public panelOpenState = true;
+  appsInfos?: Observable<any>;
+  coursesInfos?: Observable<any>;
+  
+  constructor(private uploadService: FileUploadService) { }
+  
   ngOnInit(): void {
+    this.appsInfos = this.uploadService.viewAppsFromStorage();
+    this.coursesInfos = this.uploadService.viewCoursesFromStorage();
   }
+
+
 
 }

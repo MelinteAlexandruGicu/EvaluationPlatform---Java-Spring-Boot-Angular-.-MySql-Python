@@ -3,7 +3,7 @@ package com.userauthentication.security;
 import com.userauthentication.security.jwt.AuthEntryPointJwt;
 import com.userauthentication.security.jwt.AuthTokenFilter;
 import com.userauthentication.security.jwt.JwtUtils;
-import com.userauthentication.security.services.UserDetailsServiceImpl;
+import com.userauthentication.services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -62,7 +62,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./board-teacher.component.css']
 })
 export class BoardTeacherComponent implements OnInit {
-
+  public panelOpenState = true;
   constructor() { }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 package com.userauthentication.security.jwt;
 
-import com.userauthentication.security.services.UserDetailsServiceImpl;
+import com.userauthentication.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,7 +45,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            logger.error("Cannot set user authentication: {}", e);
+            logger.error("Can't set user authentication: {}", e);
         }
         filterChain.doFilter(request, response);
     }

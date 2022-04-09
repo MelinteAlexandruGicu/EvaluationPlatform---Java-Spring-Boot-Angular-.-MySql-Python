@@ -6,21 +6,36 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FileUploadService {
-  private API_URL = 'http://localhost:6061/api/fileManager';
+  private API_URL = 'http://localhost:6061/api/fileStorage';
   constructor(private http: HttpClient) { }
   
-  public uploadFile(file: File): Observable<HttpEvent<any>> {
+  public uploadApp(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    const req = new HttpRequest('POST', `${this.API_URL}/upload`, formData, {
+    const req = new HttpRequest('POST', `${this.API_URL}/upload-app`, formData, {
       reportProgress: true,
       responseType: 'json'
     });
     return this.http.request(req);
   }
 
-  public viewFilesFromStorage(): Observable<any> {
-    console.log(`${this.API_URL}/files`)
-    return this.http.get(`${this.API_URL}/files`);
+  public uploadCourse(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    const req = new HttpRequest('POST', `${this.API_URL}/upload-course`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
+  }
+
+  public viewAppsFromStorage(): Observable<any> {
+    console.log(`${this.API_URL}/files-app`)
+    return this.http.get(`${this.API_URL}/files-app`);
+  }
+
+  public viewCoursesFromStorage(): Observable<any> {
+    console.log(`${this.API_URL}/files-course`)
+    return this.http.get(`${this.API_URL}/files-course`);
   }
 }

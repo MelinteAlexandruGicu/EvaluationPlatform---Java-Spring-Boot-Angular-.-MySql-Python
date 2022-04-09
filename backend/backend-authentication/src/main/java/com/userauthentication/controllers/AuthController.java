@@ -7,21 +7,19 @@ import com.userauthentication.payload.request.LoginRequest;
 import com.userauthentication.payload.request.RegisterRequest;
 import com.userauthentication.payload.response.JwtResponse;
 import com.userauthentication.payload.response.MessageResponse;
-import com.userauthentication.payload.response.UserInfoResponse;
 import com.userauthentication.repository.RoleRepository;
 import com.userauthentication.repository.UserRepository;
 import com.userauthentication.security.jwt.AuthEntryPointJwt;
 import com.userauthentication.security.jwt.JwtUtils;
-import com.userauthentication.security.services.UserDetailsImpl;
+import com.userauthentication.services.UserDetailsImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -64,16 +62,10 @@ public class AuthController {
         logger.info("JWT LOGIN: " + jwt);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-//        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-//        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-//                .body(new UserInfoResponse(userDetails.getId(),
-//                        userDetails.getUsername(),
-//                        userDetails.getEmail(),
-//                        roles));
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
@@ -84,11 +76,11 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Error -- Username is already taken!"));
         }
 
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Error -- Email is already in use!"));
         }
 
         // Create new user's account
@@ -101,26 +93,26 @@ public class AuthController {
 
         if (strRoles == null) {
             Role studentRole = roleRepository.findByName(ERole.ROLE_STUDENT)
-                    .orElseThrow(() -> new RuntimeException("Error: Student role is not found."));
+                    .orElseThrow(() -> new RuntimeException("Error -- Student role is not found."));
             roles.add(studentRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Admin role is not found."));
+                                .orElseThrow(() -> new RuntimeException("Error -- Admin role is not found."));
                         roles.add(adminRole);
 
                         break;
                     case "teacher":
                         Role teacherRole = roleRepository.findByName(ERole.ROLE_TEACHER)
-                                .orElseThrow(() -> new RuntimeException("Error: Teacher role is not found."));
+                                .orElseThrow(() -> new RuntimeException("Error -- Teacher role is not found."));
                         roles.add(teacherRole);
 
                         break;
                     default:
                         Role studentRole = roleRepository.findByName(ERole.ROLE_STUDENT)
-                                .orElseThrow(() -> new RuntimeException("Error: Student role is not found."));
+                                .orElseThrow(() -> new RuntimeException("Error -- Student role is not found."));
                         roles.add(studentRole);
                 }
             });
@@ -131,11 +123,4 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully in EvalPlatform!"));
     }
-
-//    @PostMapping("/logout")
-//    public ResponseEntity<?> logoutUser() {
-//        ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
-//        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-//                .body(new MessageResponse("You've been signed out!"));
-//    }
 }
