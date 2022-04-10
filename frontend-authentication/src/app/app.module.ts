@@ -9,7 +9,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -24,21 +23,27 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppUploadComponent } from './components/app-upload/app-upload.component'; 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CourseUploadComponent } from './components/course-upload/course-upload.component';
-
+import { GradesCatalogComponent } from './components/grades-catalog/grades-catalog.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { QuizCreatorComponent } from './components/quiz-creator/quiz-creator.component';
+import { MatStepperModule } from '@angular/material/stepper'
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent,
     CopyrightComponent,
     ProfileComponent,
     BoardAdminComponent,
     BoardTeacherComponent,
     BoardStudentComponent,
     AppUploadComponent,
-    CourseUploadComponent
+    CourseUploadComponent,
+    GradesCatalogComponent,
+    QuizCreatorComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +58,10 @@ import { CourseUploadComponent } from './components/course-upload/course-upload.
     MatIconModule,
     HttpClientModule,
     MatExpansionModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatStepperModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

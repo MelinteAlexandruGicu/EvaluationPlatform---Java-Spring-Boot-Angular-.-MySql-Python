@@ -14,6 +14,17 @@
     padding-bottom: 1px !important; 
 }
 
+.week {
+    color: #3D3D53;
+    border-left: 4px solid #3D3D53 ;
+    padding: 1em;
+    margin: 1em auto;
+}
+
+.description {
+    color: #3D3D53;
+}
+
 li{
     background: #fff;
     border-left: 4px solid #3D3D53 ;
@@ -25,4 +36,15 @@ li{
 
 i {
     color:red;
+}
+
+.catalog{
+    width: 70%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.quiz {
+    background-color: #3D3D53 !important;
 }

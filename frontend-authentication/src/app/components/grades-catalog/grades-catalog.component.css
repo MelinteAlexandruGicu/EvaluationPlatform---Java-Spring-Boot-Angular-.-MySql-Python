@@ -1,0 +1,33 @@
+.table {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    background-color: white;
+}
+  
+.mat-form-field {
+    font-size: 16px;
+    width: 70%;
+}
+
+.mat-header-cell {
+    color:white;
+    font-weight: 400;
+}
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+    background-color: #534339;
+}
+
+.mat-cell {
+    background-color: #fffcf5;
+    color:black;
+}
+
+.mat-paginator {
+    background-color: #534339;
+    color:white;
+    font-weight:400;
+}
+  
