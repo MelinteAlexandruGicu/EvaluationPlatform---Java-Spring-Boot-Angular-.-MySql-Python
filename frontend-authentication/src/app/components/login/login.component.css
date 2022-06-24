@@ -12,11 +12,17 @@
 }
 
 .loginButton {
-    background-color: #7b7b9d;
+    background-color: #dcb99b;
     color: black;
-    border: 1px solid;
+    border: 1px solid #402218;
     font-size:25px;
     font-family: "Trirong", serif;
+    border-radius: 6px;
+}
+
+.loginButton:hover {
+    background-color: #402218;
+    color: white;
 }
 
 .form-field {
@@ -26,24 +32,24 @@
     padding-bottom: 20px;
     border-radius: 10px;
     border-style: solid;
-    border-color: #3D3D53;
+    border-color: #402218;
 }
 
 .icon-hide {
     transform: scale(1.5);
-    color: #3D3D53;
+    color: #402218;
 }
 
 .icons {
     transform: scale(1.2);
-    color: #3D3D53;
+    color: #402218;
 }
 
 input {
     padding-left: 8px;
     font-size: 18px;
     font-family: "Trirong", serif;
-    color: #3D3D53;
+    color: #402218;
 }
 
 a {

@@ -19,6 +19,17 @@ export class FileUploadService {
     return this.http.request(req);
   }
 
+  public saveQuiz(file: File): Observable<HttpEvent<any>> {
+    console.log("FUNCTIE DE SALVARE IN DB")
+    const formData: FormData = new FormData();
+    formData.append('file', JSON.stringify(file));
+    const req = new HttpRequest('POST', `${this.API_URL}/quiz`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
+  }
+
   public uploadCourse(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);

@@ -1,0 +1,53 @@
+<div class="container mt-5">
+    <mat-card>
+        <div class="d-flex justify-content-between p-3">
+            <div>Cel mai smecher quiz</div>
+            <div>Nume student: {{ username }}</div>
+        </div>
+        <div class="d-flex justify-content-around py-3">
+            <div class="question-remain">
+                <span style="font-style: italic;">Question {{currentQuestion + 1}} of 5</span>
+            </div>
+            <div class="'quiztitle">Quiz week 7</div>
+            <div class="timer">
+                {{timer}} seconds
+            </div>
+        </div>
+        <div *ngIf="!noTime && !quizDone">
+            <div class="question">
+                <ng-container *ngIf="questions">
+                    <mat-card *ngIf="questions[currentQuestion]">
+                        {{questions[currentQuestion].question}}
+                    </mat-card>
+                </ng-container>
+            </div>
+            <div class="answers">
+                    <mat-selection-list #answersCorrect [multiple]="false">
+                        <mat-list-option *ngFor="let answer of questions[currentQuestion]?.answers" [value]="answer" (click)="evaluate(currentQuestion + 1, answer, questions[currentQuestion]?.answers)">
+                        <div *ngIf="answer.correct">{{answer.correct}}</div>
+                        <div *ngIf="answer.wrong">{{answer.wrong}}</div>
+                        <div *ngIf="answer.bad">{{answer.bad}}</div>
+                        <div *ngIf="answer.worst">{{answer.worst}}</div>
+                        </mat-list-option>
+                    </mat-selection-list>
+            </div>  
+        </div>
+        <div *ngIf="noTime || quizDone">
+            <mat-card>
+                <h2 style="text-align:center">S-a terminat testul!</h2>
+              </mat-card>
+        </div> 
+        <br><br>
+        <div class="d-flex justify-content-between">
+            <button class="buttonEvaluation" mat-raised-button color="primary" [mat-dialog-close]="noTime">Submit</button>
+            <div class="d-flex justify-content-between">
+                <button class="questionViewButton" mat-raised-button color="primary" [disabled] = "currentQuestion != 0 " >Question nr 1</button>
+                <button class="questionViewButton" mat-raised-button color="primary" [disabled] = "currentQuestion != 1 " >Question nr 2</button>
+                <button class="questionViewButton" mat-raised-button color="primary" [disabled] = "currentQuestion != 2 " >Question nr 3</button>
+                <button class="questionViewButton" mat-raised-button color="primary" [disabled] = "currentQuestion != 3 " >Question nr 4</button>
+                <button class="questionViewButton" mat-raised-button color="primary" [disabled] = "currentQuestion != 4 " >Question nr 5</button>
+            </div>
+            <button [disabled]="quizDone" class="buttonEvaluation" mat-raised-button color="primary" (click) = "nextQuestion()">Next</button>
+        </div>
+    </mat-card>
+</div>

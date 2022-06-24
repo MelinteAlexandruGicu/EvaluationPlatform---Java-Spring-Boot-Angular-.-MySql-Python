@@ -1,38 +1,48 @@
 .mat-expansion-panel-header {
-    color: #3D3D53;
+    color: #402218;
 }
 
 .mat-expansion-panel {
-    background-color: #fffcf5 !important;
-    color: #3D3D53;
+    background-color: #ffdcc9 !important;
+    color: #402218;
     padding-bottom: 10px;
 }
 
 .titles{
     padding-top: 1px !important;
-    background-color: #3D3D53 !important;
+    background-color: #402218 !important;
     padding-bottom: 1px !important; 
+    font-family: "Raleway";
+    font-size: 22px;
+    font-weight: 400;
 }
 
 .week {
-    color: #3D3D53;
-    border-left: 4px solid #3D3D53 ;
+    color: #402218;
+    border-left: 4px solid #402218 ;
     padding: 1em;
     margin: 1em auto;
+    font-family: "Raleway";
+    font-size: 22px;
+    font-weight: 400;
 }
 
 .description {
-    color: #3D3D53;
+    color: #402218;
 }
 
 li{
-    background: #fff;
-    border-left: 4px solid #3D3D53 ;
+    background-color: #ffdcc9;
+    border-left: 4px solid #402218 ;
+    border-bottom: 2px solid #402218 ;
+    border-radius:5px;
     padding: 1em;
     margin: 1em auto;
     color: #666;
+    font-size:18px;
+    font-weight: 700;
     font-family: "Raleway";
-}
+   }
 
 i {
     color:red;
@@ -46,5 +56,34 @@ i {
 }
 
 .quiz {
-    background-color: #3D3D53 !important;
+    background-color: #402218 !important;
+}
+
+.evaluateButton {
+    margin-bottom: 10px;
+    font-size:18px;
+    font-weight: 500;
+    font-family: "Raleway";
+}
+
+.newUploadButton {
+    background-color: #dcb99b;
+    color: black;
+    border: 1px solid #402218;
+    font-size: 20px;
+    font-family: "Trirong", serif;
+    margin-right: 20px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.newUploadButton:hover {
+    background-color: #402218;
+    color: white;
+}
+
+.backdropBackground {
+    box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%), 0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
+  background: #fff;
+  color: black;
 }

@@ -1,0 +1,83 @@
+div {
+    color: black;
+}
+
+::ng-deep .mat-dialog-container {
+    background: #dcb99b;
+    border: solid #402218 2px;
+
+}
+
+::ng-deep .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    background-color: #402218;
+    opacity: 0.6;
+}
+
+::ng-deep .mat-card {
+    background-color: #ffdcc9;
+    border: solid #402218 2px;
+    border-radius: 6px;
+    color: black;
+}
+
+::ng-deep .mat-selection-list{
+    color: black;
+}
+
+::ng-deep .mat-list-option{
+    border: solid 2px #402218;
+    color: black;
+    margin-top:5px;
+}
+
+::ng-deep .mat-list-option:hover{
+    background-color:#dcb99b;
+}
+
+::ng-deep .mat-list-item-enabled
+{
+    background-color:red;
+}
+
+
+::ng-deep .mat-list-base .mat-list-option {
+    color: black;
+}
+
+.question>::ng-deep .mat-card {
+    background-color: #402218;
+    color: white;
+    font-size: 18px;
+}
+
+.buttonEvaluation {
+    background-color: #402218;
+    font-size:25px;
+    font-family: "Trirong", serif;
+    border-radius: 6px;
+}
+
+.buttonEvaluation:disabled {
+    background-color: #ffdcc9;
+    color: #402218;
+    opacity:0.6;
+    border: solid 2px #402218;
+}
+
+.buttonEvaluation:hover:enabled {
+    background-color: #22120c;
+    color: white;
+}
+
+.questionViewButton:disabled {
+    background-color: #ffdcc9;
+    color: #402218;
+    border: dashed 2px #402218;
+    opacity:0.6;
+}
+
+.questionViewButton:enabled {
+    background-color: #dcb99b;
+    color: #402218;
+    border: solid 2px #402218;
+}

@@ -16,6 +16,8 @@ export class RegisterComponent implements OnInit {
   // form: FormGroup;
   form: any = {
     username: null,
+    firstname: null,
+    lastname: null,
     email: null,
     password: null,
     confirmPassword: null

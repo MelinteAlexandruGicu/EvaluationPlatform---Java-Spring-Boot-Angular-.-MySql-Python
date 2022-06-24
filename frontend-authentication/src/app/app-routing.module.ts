@@ -11,29 +11,37 @@ import { RegisterComponent } from './components/register/register.component';
 const routes: Routes = [
   {
     path: '', component: HomeComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    data: { depth: 1}
   },
   {
     path: 'home', component: HomeComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    data: { depth: 1}
   },
   {
-    path:'login', component: LoginComponent
+    path:'login', component: LoginComponent,
+    data: { depth: 2}
   },
   {
     path:'register', component: RegisterComponent,
+    data: { depth: 2}
   },
   {
-    path:'profile', component: ProfileComponent
+    path:'profile', component: ProfileComponent,
+    data: { depth: 2}
   },
   {
-    path:'student', component: BoardStudentComponent
+    path:'student', component: BoardStudentComponent,
+    data: { depth: 2}
   },
   {
-    path:'admin', component: BoardAdminComponent
+    path:'admin', component: BoardAdminComponent,
+    data: { depth: 2}
   },
   {
-    path:'teacher', component: BoardTeacherComponent
+    path:'teacher', component: BoardTeacherComponent,
+    data: { depth: 2}
   }
 ];
 

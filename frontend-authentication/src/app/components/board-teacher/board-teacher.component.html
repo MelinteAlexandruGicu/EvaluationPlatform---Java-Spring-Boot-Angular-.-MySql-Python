@@ -38,150 +38,45 @@
       <mat-panel-title>
         Tests & Grades
       </mat-panel-title>
-      <mat-panel-description>14 weeks - 14 quiz</mat-panel-description>
+      <mat-panel-description>First - second - final</mat-panel-description>
     </mat-expansion-panel-header>
     <br>
     <mat-accordion>
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 1</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 1</mat-panel-description>
+      <mat-expansion-panel
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title class="week">First evaluation - week 5</mat-panel-title>
         </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
+        <div class="evaluateButton">
+          <button class="newUploadButton" mat-button (click)="openDialog()"> <mat-icon>note_add</mat-icon> Create a new quiz</button>
+          <button class="newUploadButton" mat-button (click)="openDialogForUpload()"> <mat-icon> attach_file</mat-icon> Upload quiz</button>
+          <button class="newUploadButton" style="float:right;"> <mat-icon>save</mat-icon> Load to database </button>
+        </div><br>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 2</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 2</mat-panel-description>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="week">Second evaluation - week 9</mat-panel-title>
         </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
+        <div class="evaluateButton">
+          <button class="newUploadButton" mat-button (click)="openDialog()"><mat-icon>note_add</mat-icon> Create a new quiz</button> 
+          <button class="newUploadButton" mat-button (click)="openDialogForUpload()"> <mat-icon> attach_file</mat-icon> Upload quiz</button>
+          <button class="newUploadButton" style="float:right;"> <mat-icon>save</mat-icon> Load to database </button>
+        </div><br>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 3</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 3</mat-panel-description>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="week">Final evaluation - week 14</mat-panel-title>
         </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
+        <div class="evaluateButton">
+          <button class="newUploadButton" mat-button (click)="openDialog()"> <mat-icon>note_add</mat-icon> Create a new quiz </button> 
+          <button class="newUploadButton" mat-button (click)="openDialogForUpload()"> <mat-icon> attach_file</mat-icon> Upload quiz</button>
+          <button class="newUploadButton" style="float:right;"> <mat-icon>save</mat-icon> Load to database </button>
+        </div><br>
       </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 4</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 4</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 5</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 5</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 6</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 6</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 7</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 7</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 8</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 8</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 9</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 9</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 10</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 10</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 11</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 11</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 12</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 12</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 13</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 13</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header class="subtitle">
-          <mat-panel-title class="week">Week 14</mat-panel-title>
-          <mat-panel-description class="description">Create quiz nr. 14</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="quiz">
-          <quiz-creator></quiz-creator>
-        </div>
-      </mat-expansion-panel>
-
     </mat-accordion>
   </mat-expansion-panel>
 </mat-accordion>

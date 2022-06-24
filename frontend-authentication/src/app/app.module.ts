@@ -29,6 +29,13 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { QuizCreatorComponent } from './components/quiz-creator/quiz-creator.component';
 import { MatStepperModule } from '@angular/material/stepper'
+import { MatMenuModule } from '@angular/material/menu'
+import { MatDividerModule} from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
+import { StartQuizComponent } from './components/start-quiz/start-quiz.component'
+import { MatCardModule } from '@angular/material/card'
+import { MatListModule } from '@angular/material/list';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +50,8 @@ import { MatStepperModule } from '@angular/material/stepper'
     AppUploadComponent,
     CourseUploadComponent,
     GradesCatalogComponent,
-    QuizCreatorComponent
+    QuizCreatorComponent,
+    StartQuizComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +69,12 @@ import { MatStepperModule } from '@angular/material/stepper'
     MatSortModule,
     MatPaginatorModule,
     MatTableModule,
-    MatStepperModule
+    MatStepperModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatDialogModule,
+    MatCardModule,
+    MatListModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

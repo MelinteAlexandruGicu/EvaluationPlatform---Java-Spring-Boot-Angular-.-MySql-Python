@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './grades-catalog.component.html',
   styleUrls: ['./grades-catalog.component.css']
 })
+
 export class GradesCatalogComponent implements OnInit {
   columns = ['id', 'username', 'email', 'grade']
   data: MatTableDataSource<StudentData>;
@@ -17,13 +18,12 @@ export class GradesCatalogComponent implements OnInit {
 
   constructor() {
     const students: StudentData[] = [];
-    for (let i = 0; i < 5; ++i)
-    {
+    for (let i = 0; i < 5; ++i) {
       students.push(createNewStudentTest(i));
     }
 
     this.data = new MatTableDataSource(students)
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -35,16 +35,16 @@ export class GradesCatalogComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase(); 
+    filterValue = filterValue.toLowerCase();
     this.data!.filter = filterValue;
   }
 }
 
 function createNewStudentTest(id: number): StudentData {
   const name =
-  names[id]
+    names[id]
   const email =
-  emails[id]
+    emails[id]
 
   return {
     id: id + 1,
@@ -55,7 +55,7 @@ function createNewStudentTest(id: number): StudentData {
 }
 
 const grades = [5, 6, 7, 10, 8];
-const names = ['Alex', 'Stefania', 'Andrei', 'Laur', 'Matei']
+const names = ['Alex', 'Stefania', 'Laur', 'Andrei', 'Matei']
 const emails = ['alex@gmail.com', 'stefania@gmail.com', 'laur@gmail.com', 'andrei@gmail.com', 'matei@gmail.com']
 
 

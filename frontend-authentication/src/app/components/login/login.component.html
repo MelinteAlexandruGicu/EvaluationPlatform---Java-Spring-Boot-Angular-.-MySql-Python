@@ -10,7 +10,6 @@
                     <br><br>
                     <form 
                     name="form"
-                    (ngSubmit)="f.form.valid && onSubmit()"
                     #f="ngForm"
                     novalidate>
                         <mat-form-field class="full-width" appearance="legacy" color="primary">
@@ -32,7 +31,7 @@
                             <input [(ngModel)]="form.password" name="password" matInput [type]="hide ? 'password' : 'text'" required 
                             pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
                             #password="ngModel"/>
-                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
+                            <button mat-icon-button matSuffix (click)="hide = !hide">
                                 <mat-icon class="icon-hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
                             <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
@@ -40,7 +39,7 @@
                         </mat-form-field>
                         <br>
                         <div class="container text-center">
-                            <button type="submit" mat-raised-button class="loginButton">Login</button>
+                            <button type="submit" mat-raised-button class="loginButton" (click)="onSubmit()">Login</button>
                             <br><br>
                             <a>Don't you have already an account? <a routerLink="/register">Register here</a></a>
                         </div>

@@ -12,8 +12,9 @@ form {
 }
 
 .mat-stepper-vertical {
-    background-color: #fffcf5;
+    background-color: #dcb99b;
     color: black;
+    border: solid #402218 1px;
 }
 
 ::ng-deep .mat-step-text-label {
@@ -21,7 +22,7 @@ form {
 }
 
 ::ng-deep .mat-vertical-stepper-header .mat-step-icon {
-    background-color: #534339;
+    background-color: #402218;
 }
 
 .inputs {
@@ -30,22 +31,41 @@ form {
 
 .next {
     text-align: center;
-    color: #534339;
+    color: #402218;
 }
 
-.next>button {
-    color: #fffcf5;
-    background-color: #534339;
-    border: 2px solid #534339;
-    margin-bottom: 10px;
-    margin-left: 10px;
+::ng-deep .mat-button.mat-accent, .mat-icon-button.mat-accent, .mat-stroked-button.mat-accent {
+    color: white;
+}
+
+button {
+    background-color: #402218;
+    font-size:25px;
+    font-family: "Trirong", serif;
+    border-radius: 6px;
+}
+
+button:hover {
+    background-color: #22120c;
+    color: white;
+}
+
+::ng-deep .mat-dialog-container {
+    background: #ffdcc9;
+    border: solid #402218 2px;
+
 }
 
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
-    background-color: #f3f1eb;
+    background-color: #ffdcc9;
     border-radius: 5px;
-    border-left: 4px solid #534339;
+    border-left: 4px solid #402218;
 }
 
 ::placeholder { 
     color: red;}
+
+::ng-deep .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    background-color: #402218;
+    opacity: 0.6;
+}

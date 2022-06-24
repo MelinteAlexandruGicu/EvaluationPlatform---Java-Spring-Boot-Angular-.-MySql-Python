@@ -17,16 +17,16 @@
 .mat-table {
     overflow: auto;
     max-height: 500px;
-    background-color: #534339;
+    background-color: #402218;
 }
 
 .mat-cell {
-    background-color: #fffcf5;
+    background-color: #dcb99b;
     color:black;
 }
 
 .mat-paginator {
-    background-color: #534339;
+    background-color: #402218;
     color:white;
     font-weight:400;
 }
