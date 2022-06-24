@@ -29,6 +29,12 @@ public class User {
     private String username;
 
     @NotBlank
+    private String firstname;
+
+    @NotBlank
+    private String lastname;
+
+    @NotBlank
     @Email
     private String email;
 
@@ -41,6 +47,14 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @ToString.Exclude
     private Set<Role> roles = new HashSet<>(); //un singur rol
+
+    public User(String username, String firstname, String lastname, String email, String password) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
 
     public User(String username, String email, String password) {
         this.username = username;

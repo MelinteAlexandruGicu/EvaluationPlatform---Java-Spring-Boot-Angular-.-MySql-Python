@@ -1,21 +1,9 @@
 <label>
     <input type="file" (change)="selectFile($event)" style="display: inline" />
 </label>
-    <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadFile()" >
-    Upload file
+    <button mat-raised-button class="uploadButton" [disabled]="!selectedFiles" (click)="uploadFile()" >
+    Upload course
 </button><br><br>
-  <div *ngIf="currentFile" class="progress my-3">
-    <div
-      class="progress-bar progress-bar-info progress-bar-striped"
-      role="progressbar"
-      attr.aria-valuenow="{{ progress }}"
-      aria-valuemin="0"
-      aria-valuemax="100"
-      [ngStyle]="{ width: progress + '%' }"
-    >
-      {{ progress }}%
-    </div>
-  </div>
   <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
   <div>
     <ul *ngFor="let file of coursesInfos | async" style="list-style-type: none;">

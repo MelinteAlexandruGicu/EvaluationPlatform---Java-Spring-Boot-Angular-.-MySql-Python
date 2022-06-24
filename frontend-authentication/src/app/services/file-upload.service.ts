@@ -20,10 +20,9 @@ export class FileUploadService {
   }
 
   public saveQuiz(file: File): Observable<HttpEvent<any>> {
-    console.log("FUNCTIE DE SALVARE IN DB")
     const formData: FormData = new FormData();
-    formData.append('file', JSON.stringify(file));
-    const req = new HttpRequest('POST', `${this.API_URL}/quiz`, formData, {
+    formData.append('file', file);
+    const req = new HttpRequest('POST', `${this.API_URL}/upload-quiz`, formData, {
       reportProgress: true,
       responseType: 'json'
     });
@@ -41,12 +40,14 @@ export class FileUploadService {
   }
 
   public viewAppsFromStorage(): Observable<any> {
-    console.log(`${this.API_URL}/files-app`)
     return this.http.get(`${this.API_URL}/files-app`);
   }
 
   public viewCoursesFromStorage(): Observable<any> {
-    console.log(`${this.API_URL}/files-course`)
     return this.http.get(`${this.API_URL}/files-course`);
+  }
+
+  public viewQuizzesFromStorage(): Observable<any> {
+    return this.http.get(`${this.API_URL}/files-quizzes`);
   }
 }

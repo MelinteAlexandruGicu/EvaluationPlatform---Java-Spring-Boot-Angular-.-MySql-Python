@@ -14,15 +14,19 @@ import java.util.stream.Collectors;
 public class UserDetailsImpl implements UserDetails {
     private final Long id;
     private final String username;
+    private final String firstname;
+    private final String lastname;
     private final String email;
     @JsonIgnore
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String email, String password,
+    public UserDetailsImpl(Long id, String username, String firstname, String lastname, String email, String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
@@ -35,6 +39,8 @@ public class UserDetailsImpl implements UserDetails {
         return new UserDetailsImpl(
                 user.getId(),
                 user.getUsername(),
+                user.getFirstname(),
+                user.getLastname(),
                 user.getEmail(),
                 user.getPassword(),
                 authorities);
@@ -52,6 +58,10 @@ public class UserDetailsImpl implements UserDetails {
     public String getEmail() {
         return email;
     }
+
+    public String getFirstname() { return firstname; }
+
+    public String getLastname() { return lastname; }
 
     @Override
     public String getPassword() {

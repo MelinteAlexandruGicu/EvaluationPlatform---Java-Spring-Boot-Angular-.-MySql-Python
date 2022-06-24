@@ -11,10 +11,10 @@ import { trigger, transition, group, query, style, animate } from '@angular/anim
 
 export class AppComponent implements OnInit {
   private roles: string[] = [];
-  public isLoggedIn = false;
-  public showAdminBoard = false;
-  public showTeacherBoard = false;
-  public showStudentBoard = false;
+  public isLoggedIn: boolean = false;
+  public showAdminBoard: boolean = false;
+  public showTeacherBoard: boolean = false;
+  public showStudentBoard: boolean = false;
   public username?: string;
   public email?: string;
   public href: string = "";
@@ -36,14 +36,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  logout(): void {
+  public logout(): void {
     this.tokenStorageService.logout();
     window.location.reload();
   }
-
-  getDepth(outlet: { activatedRouteData: { [x: string]: any; }; })
-  {
-    outlet.activatedRouteData['depth'];
-  }
-
 }

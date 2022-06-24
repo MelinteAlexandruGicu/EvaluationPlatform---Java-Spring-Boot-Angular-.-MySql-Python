@@ -69,6 +69,8 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
+                userDetails.getFirstname(),
+                userDetails.getLastname(),
                 userDetails.getEmail(),
                 roles));
     }
@@ -85,6 +87,8 @@ public class AuthController {
 
         // Create new user's account
         User user = new User(registerRequest.getUsername(),
+                registerRequest.getFirstname(),
+                registerRequest.getLastname(),
                 registerRequest.getEmail(),
                 encoder.encode(registerRequest.getPassword()));
 
@@ -102,13 +106,11 @@ public class AuthController {
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error -- Admin role is not found."));
                         roles.add(adminRole);
-
                         break;
                     case "teacher":
                         Role teacherRole = roleRepository.findByName(ERole.ROLE_TEACHER)
                                 .orElseThrow(() -> new RuntimeException("Error -- Teacher role is not found."));
                         roles.add(teacherRole);
-
                         break;
                     default:
                         Role studentRole = roleRepository.findByName(ERole.ROLE_STUDENT)

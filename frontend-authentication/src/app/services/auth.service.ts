@@ -12,26 +12,23 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API + '/login', {
+  public login(username: string, password: string): Observable<any> {
+    return this._http.post(AUTH_API + '/login', {
       username,
       password
     }, httpOptions);
   }
 
-  register(username: string, email: string, password: string, cPassword: string): Observable<any> {
-    return this.http.post(AUTH_API + '/register', {
+  public register(username: string, firstname: string, lastname: string, email: string, password: string, cPassword: string): Observable<any> {
+    return this._http.post(AUTH_API + '/register', {
       username,
+      firstname,
+      lastname,
       email,
       password,
       cPassword
     }, httpOptions);
   }
-  // logout(): Observable<any> {
-  //   return this.http.post(AUTH_API + '/logout', {
-  //   }, httpOptions);
-  // }
-
 }

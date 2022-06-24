@@ -51,6 +51,19 @@ public class FileController {
         }
     }
 
+    @PostMapping("/upload-quiz")
+    public ResponseEntity<ResponseMessage> uploadQuiz(@RequestParam("file") MultipartFile file) {
+        String message;
+        try {
+            fileStorageService.storeQuizzes(file);
+            message = "Your Quiz (" + file.getOriginalFilename() + " has been saved)!";
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e) {
+            message = "Error -- quiz (" + file.getOriginalFilename() + ") has not been saved!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
     @GetMapping("/files-app")
     public ResponseEntity<List<ResponseFile>> getListApp() {
         List<ResponseFile> files = fileStorageService.getAllApps().map(appStorage -> {
@@ -81,6 +94,23 @@ public class FileController {
                     fileDownloadUri,
                     courseStorage.getType(),
                     courseStorage.getData().length);
+        }).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+
+    @GetMapping("/files-quizzes")
+    public ResponseEntity<List<ResponseFile>> getListQuizzes() {
+        List<ResponseFile> files = fileStorageService.getAllQuizzes().map(quizStorage -> {
+            String fileDownloadUri = ServletUriComponentsBuilder
+                    .fromCurrentContextPath()
+                    .path("/api/fileStorage/files-quizzes/")
+                    .path(quizStorage.getId())
+                    .toUriString();
+            return new ResponseFile(
+                    quizStorage.getName(),
+                    fileDownloadUri,
+                    quizStorage.getType(),
+                    quizStorage.getData().length);
         }).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }

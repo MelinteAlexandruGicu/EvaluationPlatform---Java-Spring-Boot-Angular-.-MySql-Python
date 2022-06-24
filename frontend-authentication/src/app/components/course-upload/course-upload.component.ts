@@ -9,16 +9,15 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
   styleUrls: ['./course-upload.component.css']
 })
 export class CourseUploadComponent implements OnInit {
-  selectedFiles?: FileList;
-  currentFile?: File;
-  progress = 0;
-  message = '';
-  coursesInfos?: Observable<any>;
+  public selectedFiles?: FileList;
+  public currentFile?: File;
+  public message: string = '';
+  public coursesInfos?: Observable<any>;
   
-  constructor(private uploadService: FileUploadService) { }
+  constructor(private _uploadService: FileUploadService) { }
 
   ngOnInit(): void {
-    this.coursesInfos = this.uploadService.viewCoursesFromStorage();
+    this.coursesInfos = this._uploadService.viewCoursesFromStorage();
   }
 
   public selectFile(event: any): void {
@@ -26,27 +25,23 @@ export class CourseUploadComponent implements OnInit {
   }
 
   public uploadFile(): void {
-    this.progress = 0;
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
       if (file) {
         this.currentFile = file;
-        this.uploadService.uploadCourse(this.currentFile).subscribe({
+        this._uploadService.uploadCourse(this.currentFile).subscribe({
           next: (event: any) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.progress = Math.round(100 * event.loaded / event.total);
-            } else if (event instanceof HttpResponse) {
+            if (event instanceof HttpResponse) {
               this.message = event.body.message;
-              this.coursesInfos = this.uploadService.viewCoursesFromStorage();
+              this.coursesInfos = this._uploadService.viewCoursesFromStorage();
             }
           },
           error: (err: any) => {
             console.log(err);
-            this.progress = 0;
             if (err.error && err.error.message) {
               this.message = err.error.message;
             } else {
-              this.message = 'Could not upload the file for some reason!';
+              this.message = 'Could not upload the file! The size of the file is too long!';
             }
             this.currentFile = undefined;
           }
@@ -55,5 +50,4 @@ export class CourseUploadComponent implements OnInit {
       this.selectedFiles = undefined;
     }
   }
-
 }

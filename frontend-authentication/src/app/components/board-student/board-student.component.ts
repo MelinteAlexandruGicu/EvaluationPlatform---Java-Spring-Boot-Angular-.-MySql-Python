@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { HandleQuestionService } from 'src/app/services/handle-question.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { StartQuizComponent } from '../start-quiz/start-quiz.component';
 
 @Component({
@@ -11,21 +12,24 @@ import { StartQuizComponent } from '../start-quiz/start-quiz.component';
   styleUrls: ['./board-student.component.css']
 })
 export class BoardStudentComponent implements OnInit {
-  public panelOpenState = true;
-  appsInfos?: Observable<any>;
-  coursesInfos?: Observable<any>;
-  public dialogClosed = false;
+  public panelOpenState: boolean = true;
+  public appsInfos?: Observable<any>;
+  public coursesInfos?: Observable<any>;
+  public dialogClosed: boolean = false;
   public grade: number = 1;
+  public username: string = '';
   
-  constructor(private uploadService: FileUploadService, public dialog: MatDialog, private handleQuestion: HandleQuestionService) { }
+  constructor(private _uploadService: FileUploadService, public dialog: MatDialog, private _handleQuestion: HandleQuestionService, private _tokenStorageService: TokenStorageService) { }
   
   ngOnInit(): void {
-    this.appsInfos = this.uploadService.viewAppsFromStorage();
-    this.coursesInfos = this.uploadService.viewCoursesFromStorage();
+    this.appsInfos = this._uploadService.viewAppsFromStorage();
+    this.coursesInfos = this._uploadService.viewCoursesFromStorage();
+    const user = this._tokenStorageService.getUser();
+    this.username = user.username;
   }
 
 
-  openDialogQuiz(): void {
+  public openDialogQuiz(): void {
     const dialogRef = this.dialog.open(StartQuizComponent, {
       width: '1450px',
       height: '1020px',
@@ -34,13 +38,13 @@ export class BoardStudentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.dialogClosed = true;
-      localStorage.setItem('oneAttempt', JSON.stringify(this.dialogClosed));
-      this.grade = this.handleQuestion.getGrade();
-      localStorage.setItem('grade', JSON.stringify(this.grade));
+      localStorage.setItem('oneAttempt' + this.username, JSON.stringify(this.dialogClosed));
+      this.grade = this._handleQuestion.getGrade();
     });
   }
 
-  getOneAttemptFromLocalStorage() {
-    return localStorage.getItem('oneAttempt');
+  public getOneAttemptFromLocalStorage(username: string) {
+    // console.log(username + " din local storage");
+    return localStorage.getItem('oneAttempt'+ username);
   }
 }

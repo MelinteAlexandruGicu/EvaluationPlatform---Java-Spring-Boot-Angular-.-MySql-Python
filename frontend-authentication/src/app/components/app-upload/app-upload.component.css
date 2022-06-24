@@ -9,4 +9,27 @@ li{
     font-size:18px;
     font-weight: 700;
     font-family: "Raleway";
-   }
+}
+
+.uploadButton {
+    background-color: #dcb99b;
+    color: black;
+    border: 1px solid #402218;
+    font-size: 20px;
+    font-family: "Trirong", serif;
+    margin-right: 20px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.uploadButton:hover:enabled {
+    background-color: #402218;
+    color: white;
+}
+
+.uploadButton:disabled {
+    background-color: #ffdcc9;
+    color: #402218;
+    border: solid 2px #402218;
+    opacity:0.6;
+}

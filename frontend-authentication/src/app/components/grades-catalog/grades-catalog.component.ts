@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { EvaluationStudentService } from 'src/app/services/evaluation-student.service';
 
 @Component({
   selector: 'grades-catalog',
@@ -10,58 +11,35 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 
 export class GradesCatalogComponent implements OnInit {
-  columns = ['id', 'username', 'email', 'grade']
-  data: MatTableDataSource<StudentData>;
+  // public firstname: string;
+  // public lastname: string;
+  // public grade: number;
+  // public email: string;
+  // public evaluationType: string;
+  public students = [];
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  constructor() {
-    const students: StudentData[] = [];
-    for (let i = 0; i < 5; ++i) {
-      students.push(createNewStudentTest(i));
-    }
-
-    this.data = new MatTableDataSource(students)
+  constructor(private _evaluationStudent: EvaluationStudentService) {
+    
+    // this.firstname = studentsDb.firstname;
+    // this.lastname = studentsDb.lastname;
+    // this.grade = studentsDb.grade;
+    // this.email = studentsDb.email;
+    // this.evaluationType = studentsDb.evaluationType;
   }
 
   ngOnInit(): void {
+    this.getStudents();
   }
 
-  ngAfterViewInit() {
-    this.data!.paginator = this.paginator;
-    this.data!.sort = this.sort;
+  getStudents() {
+    this._evaluationStudent.getStudents()
+      .subscribe(
+        data => {
+          console.log(data);
+          this.students = data;
+        },
+        error => {
+          console.log(error);
+        });
   }
-
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.data!.filter = filterValue;
-  }
-}
-
-function createNewStudentTest(id: number): StudentData {
-  const name =
-    names[id]
-  const email =
-    emails[id]
-
-  return {
-    id: id + 1,
-    username: name,
-    email: email,
-    grade: grades[id]
-  };
-}
-
-const grades = [5, 6, 7, 10, 8];
-const names = ['Alex', 'Stefania', 'Laur', 'Andrei', 'Matei']
-const emails = ['alex@gmail.com', 'stefania@gmail.com', 'laur@gmail.com', 'andrei@gmail.com', 'matei@gmail.com']
-
-
-export interface StudentData {
-  id: number;
-  username: string;
-  email: string;
-  grade: number;
 }

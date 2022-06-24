@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
+import { EvaluationStudentService } from 'src/app/services/evaluation-student.service';
 import { HandleQuestionService } from 'src/app/services/handle-question.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
@@ -12,23 +13,30 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class StartQuizComponent implements OnInit {
   public questions: any = [];
   public currentQuestion: number = 0;
-  public grade = 1;
-  public timer = 10;
+  public grade: number  = 1;
+  public timer: number  = 10;
   public interval$: any; // $ means observable
-  public noTime = false;
-  public correct = 0;
-  public wrong = 0;
-  public quizDone = false;
+  public noTime: boolean = false;
+  public correct: number  = 0;
+  public wrong: number  = 0;
+  public quizDone: boolean = false;
   public username: string = '';
+  public firstname: string = '';
+  public lastname: string = '';
+  public typeOfEvaluation: string = 'eval1';
+  public email: string = '';
 
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
-  constructor(private handleQuestion: HandleQuestionService, private router: Router, private tokenStorageService: TokenStorageService) { }
+  constructor(private _handleQuestion: HandleQuestionService, private _router: Router, private _tokenStorageService: TokenStorageService,
+              private _evaluationStudent: EvaluationStudentService) { }
 
   ngOnInit(): void {
     this.getData("eval1.json");
     this.startTimer();
-    const user = this.tokenStorageService.getUser();
+    const user = this._tokenStorageService.getUser();
     this.username = user.username;
+    this.firstname = user.firstname;
+    this.lastname = user.lastname;
+    this.email = user.email;
   }
 
   public getTime() {
@@ -36,7 +44,7 @@ export class StartQuizComponent implements OnInit {
   }
 
   public getData(data: string) {
-    this.handleQuestion.getEvaluation(data).subscribe(result => {
+    this._handleQuestion.getEvaluation(data).subscribe(result => {
       this.questions = result.questions;
     })
   }
@@ -65,7 +73,7 @@ export class StartQuizComponent implements OnInit {
       this.currentQuestion++;
     }
     
-    this.handleQuestion.setGrade(this.grade);
+    this._handleQuestion.setGrade(this.grade);
   }
 
   public startTimer() {
@@ -83,5 +91,19 @@ export class StartQuizComponent implements OnInit {
     console.log("times up");
     this.interval$.unsubscribe();
     this.timer = 0;
+    const student = {
+      firstname: this.firstname,
+      lastname: this.lastname,
+      email: this.email,
+      grade: this.grade,
+      evaluationType: this.typeOfEvaluation
+    };
+    this._evaluationStudent.saveToCatalog(student).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      });
   }
 }

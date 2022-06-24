@@ -9,17 +9,15 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
   styleUrls: ['./app-upload.component.css']
 })
 export class AppUploadComponent implements OnInit {
-
-  selectedFiles?: FileList;
-  currentFile?: File;
-  progress = 0;
-  message = '';
-  fileInfos?: Observable<any>;
+  public selectedFiles?: FileList;
+  public currentFile?: File;
+  public message: string = '';
+  public fileInfos?: Observable<any>;
   
-  constructor(private uploadService: FileUploadService) { }
+  constructor(private _uploadService: FileUploadService) { }
   
   ngOnInit(): void {
-    this.fileInfos = this.uploadService.viewAppsFromStorage();
+    this.fileInfos = this._uploadService.viewAppsFromStorage();
   }
 
   public selectFile(event: any): void {
@@ -27,23 +25,19 @@ export class AppUploadComponent implements OnInit {
   }
 
   public uploadFile(): void {
-    this.progress = 0;
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
       if (file) {
         this.currentFile = file;
-        this.uploadService.uploadApp(this.currentFile).subscribe({
+        this._uploadService.uploadApp(this.currentFile).subscribe({
           next: (event: any) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.progress = Math.round(100 * event.loaded / event.total);
-            } else if (event instanceof HttpResponse) {
+             if (event instanceof HttpResponse) {
               this.message = event.body.message;
-              this.fileInfos = this.uploadService.viewAppsFromStorage();
+              this.fileInfos = this._uploadService.viewAppsFromStorage();
             }
           },
           error: (err: any) => {
             console.log(err);
-            this.progress = 0;
             if (err.error && err.error.message) {
               this.message = err.error.message;
             } else {

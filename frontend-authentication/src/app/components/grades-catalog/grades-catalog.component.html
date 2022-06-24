@@ -1,39 +1,20 @@
-
-<div class="filter">
-    <mat-form-field>
-        <mat-label style="color:black;"> Filter ... </mat-label>
-        <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Filter">
-    </mat-form-field>
-</div>
-  
-<div class="table">
-
-<mat-table [dataSource]="data" matSort>
-
-    <ng-container matColumnDef="id">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Nr. </mat-header-cell>
-    <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="username">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Username </mat-header-cell>
-    <mat-cell *matCellDef="let row"> {{row.username}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="email">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-    <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="grade">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Grade </mat-header-cell>
-    <mat-cell *matCellDef="let row"> {{row.grade}} </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: columns;">
-    </mat-row>
-</mat-table>
-
-<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+<div style="text-align:center;">
+<table>
+    <tr>
+      <th> Id </th>
+      <th> Firstname </th>
+      <th> Lastname </th>
+      <th> Email </th>
+      <th> Grade </th>
+      <th> Evaluation </th>
+    </tr>
+    <tr *ngFor="let student of students">
+        <td>{{ student["id"] }}</td>
+        <td>{{ student["firstname"] }}</td>
+        <td>{{ student["lastname"] }}</td>
+        <td>{{ student["email"] }}</td>
+        <td>{{ student["grade"] }}</td>
+        <td>{{ student["evaluationType"] }}</td>
+      </tr>
+  </table>
 </div>

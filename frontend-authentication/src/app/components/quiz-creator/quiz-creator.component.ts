@@ -9,45 +9,45 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 })
 export class QuizCreatorComponent implements OnInit {
 
-  firstQuestion!: FormGroup 
-  secondQuestion!: FormGroup;
-  thirdQuestion!: FormGroup;
-  fourthQuestion!: FormGroup;
-  fifthQuestion!: FormGroup;
-  saveSuccess:boolean = false;
+  public firstQuestion!: FormGroup 
+  public secondQuestion!: FormGroup;
+  public thirdQuestion!: FormGroup;
+  public fourthQuestion!: FormGroup;
+  public fifthQuestion!: FormGroup;
+  public saveSuccess:boolean = false;
 
-  constructor(private fb: FormBuilder, private uploadService: FileUploadService) { }
+  constructor(private _fb: FormBuilder, private _uploadService: FileUploadService) { }
 
   ngOnInit(): void {
-    this.firstQuestion = this.fb.group({
+    this.firstQuestion = this._fb.group({
       question: ['', Validators.required],
       correct: ['', Validators.required],
       wrong: ['', Validators.required],
       bad: ['', Validators.required],
       worst: ['', Validators.required]
     });
-    this.secondQuestion = this.fb.group({
+    this.secondQuestion = this._fb.group({
       question: ['', Validators.required],
       correct: ['', Validators.required],
       wrong: ['', Validators.required],
       bad: ['', Validators.required],
       worst: ['', Validators.required]
     });
-    this.thirdQuestion = this.fb.group({
+    this.thirdQuestion = this._fb.group({
       question: ['', Validators.required],
       correct: ['', Validators.required],
       wrong: ['', Validators.required],
       bad: ['', Validators.required],
       worst: ['', Validators.required]
     });
-    this.fourthQuestion = this.fb.group({
+    this.fourthQuestion = this._fb.group({
       question: ['', Validators.required],
       correct: ['', Validators.required],
       wrong: ['', Validators.required],
       bad: ['', Validators.required],
       worst: ['', Validators.required]
     });
-    this.fifthQuestion = this.fb.group({
+    this.fifthQuestion = this._fb.group({
       question: ['', Validators.required],
       correct: ['', Validators.required],
       wrong: ['', Validators.required],
@@ -57,7 +57,7 @@ export class QuizCreatorComponent implements OnInit {
 
   }
 
-  onSubmit() : void
+  public onSubmit() : void
   {
     let a1 = [{"correct": this.firstQuestion.controls['correct'].value}, 
               {"wrong": this.firstQuestion.controls['wrong'].value},

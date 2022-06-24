@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { matchValidator } from 'src/app/functions/form-validators';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,11 +8,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  isSuccessful = false;
-  isSignUpFailed = false;
-  errorMessage = '';
-  // form: FormGroup;
-  form: any = {
+  public isSuccessful: boolean = false;
+  public isSignUpFailed: boolean = false;
+  public hide: boolean = true;
+  public errorMessage: string = '';
+  public form: any = {
     username: null,
     firstname: null,
     lastname: null,
@@ -22,17 +20,16 @@ export class RegisterComponent implements OnInit {
     password: null,
     confirmPassword: null
   }
-    hide = true;
 
-  constructor(private authService: AuthService) { }
+  constructor(private _authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  onRegister() {
+  public onRegister() {
     console.log("Register was sent!");
-    const { username, email, password, confirmPassword } = this.form;
-    this.authService.register(username, email, password, confirmPassword).subscribe(
+    const { username, firstname, lastname, email, password, confirmPassword } = this.form;
+    this._authService.register(username, firstname, lastname, email, password, confirmPassword).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;

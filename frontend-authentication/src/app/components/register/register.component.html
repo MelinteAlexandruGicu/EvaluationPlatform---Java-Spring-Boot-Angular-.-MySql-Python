@@ -45,7 +45,7 @@
                             required pattern="[a-zA-Z0-9]+"
                             minlength="3"
                             maxlength="20"
-                            #username="ngModel"/>
+                            #firstname="ngModel"/>
                             <mat-error *ngIf="firstname.hasError('minlength')">Firstname must be at least 3 characters</mat-error>
                             <mat-error *ngIf="firstname.hasError('required')">Firstname is required</mat-error>
                             <mat-error *ngIf="firstname.hasError('pattern')">Firstname must be a valid username</mat-error>
@@ -59,7 +59,7 @@
                             required pattern="[a-zA-Z0-9]+"
                             minlength="3"
                             maxlength="20"
-                            #username="ngModel"/>
+                            #lastname="ngModel"/>
                             <mat-error *ngIf="lastname.hasError('minlength')">Lastname must be at least 3 characters</mat-error>
                             <mat-error *ngIf="lastname.hasError('required')">Lastname is required</mat-error>
                             <mat-error *ngIf="lastname.hasError('pattern')">Lastname must be a valid username</mat-error>

@@ -7,46 +7,44 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
     path: '', component: HomeComponent,
     pathMatch: 'full',
-    data: { depth: 1}
   },
   {
     path: 'home', component: HomeComponent,
     pathMatch: 'full',
-    data: { depth: 1}
   },
   {
     path:'login', component: LoginComponent,
-    data: { depth: 2}
   },
   {
     path:'register', component: RegisterComponent,
-    data: { depth: 2}
   },
   {
     path:'profile', component: ProfileComponent,
-    data: { depth: 2}
+    canActivate: [AuthGuard]
   },
   {
     path:'student', component: BoardStudentComponent,
-    data: { depth: 2}
+    canActivate: [AuthGuard]
   },
   {
     path:'admin', component: BoardAdminComponent,
-    data: { depth: 2}
+    canActivate: [AuthGuard]
   },
   {
     path:'teacher', component: BoardTeacherComponent,
-    data: { depth: 2}
+    canActivate: [AuthGuard]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

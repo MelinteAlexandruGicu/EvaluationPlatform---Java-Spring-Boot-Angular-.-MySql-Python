@@ -58,7 +58,7 @@
           <mat-panel-title class="week">Week 5</mat-panel-title>
           <mat-panel-description class="description">Evaluate app 1</mat-panel-description>
         </mat-expansion-panel-header>
-        <button [disabled]="getOneAttemptFromLocalStorage()" class="startQuizButton" mat-raised-button (click)="openDialogQuiz()"> <mat-icon> <mat-icon>arrow_forward</mat-icon></mat-icon> Start quiz</button>
+        <button [disabled]="getOneAttemptFromLocalStorage(username)" class="startQuizButton" mat-raised-button (click)="openDialogQuiz()"> <mat-icon> <mat-icon>arrow_forward</mat-icon></mat-icon> Start quiz</button>
         <div *ngIf="dialogClosed">
           <br><br>
           <mat-card>

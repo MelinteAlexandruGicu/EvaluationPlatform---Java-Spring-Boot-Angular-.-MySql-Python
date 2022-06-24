@@ -9,15 +9,15 @@ export class HandleQuestionService {
   public grade: number = 0;
   constructor(private http: HttpClient) { }
 
-  getEvaluation(evaluationName: string) {
+  public getEvaluation(evaluationName: string) {
     return this.http.get<any>("assets/evaluations/" + evaluationName);
   }
 
-  getGrade() {
+  public getGrade() {
     return this.grade;
   }
 
-  setGrade(grade: number) {
+  public setGrade(grade: number) {
     this.grade = grade;
   }
 }

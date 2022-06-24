@@ -1,16 +1,18 @@
-Teacher --> Acceseaza evaluation --> creaza quiz --> se salveaza intr-un json
-Student --> Acceseaza evaluation --> start quiz --> furnizare rezultat student ---> furnizare rezultat intr-un tabel al profesorului
-
-QUIZ (1st attempt - cea mai usoara metoda de evaluare):
-	- next question
-	- timer
-	- nr intrebari
-	- vizualizare raspuns efectuat (ex: moodle test)
-	- review pentru raspunsuri la final
-	- punctaj oferit la final
-	- scrie raspunsul intr-o caseta
-
 Teacher --> delete course / app --> delete si din baza de date
 Vizualizare profil pt utilizator --> incarca avatar
 
-Dupa ce se completeaza toate 14 quiz-uri --> furnizare medie student --> furnizare medie intr-un tabel al profesorului
+Dupa ce se completeaza toate 3 quiz-uri --> furnizare medie student --> furnizare medie intr-un tabel al profesorului
+
+- partea de unit testing 
+
+
+TODO
+-- validare la server deadline quiz
+-- charturi pt statistici
+-- generare clopot gauss pe partea de evaluare -> analiza si statistica -
+-- grupe/ani
+-- admin/profesor analiza -> la nivel de grupa -> materia x -> vizualizare graf ...
+-- trimitere mail pt note -low priority
+-- confirmare mail inregsitrare - low priority
+-- apreciere student pe parcursul anilor -> crestere potential/descrestere -> AI
+-- analiza de date/ comparare pt un nr de studenti, apreciere, evolutie
