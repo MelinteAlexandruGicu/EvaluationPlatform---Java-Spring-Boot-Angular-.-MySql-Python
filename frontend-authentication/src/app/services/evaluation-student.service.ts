@@ -8,6 +8,7 @@ import { Student } from '../models/student';
 })
 export class EvaluationStudentService {
   private API_URL = 'http://localhost:6062/api/evaluation';
+  private typeOfEvaluation: string = '';
   constructor(private _http: HttpClient) { }
 
   public saveToCatalog(student: any): Observable<any> {
@@ -16,5 +17,13 @@ export class EvaluationStudentService {
 
   public getStudents(): Observable<any> {
     return this._http.get(`${this.API_URL}/get-students`);
+  }
+
+  public setTypeOfEvaluation(evaluation: string) {
+    this.typeOfEvaluation = evaluation;
+  }
+
+  public getTypeOfEvaluation() {
+    return this.typeOfEvaluation;
   }
 }

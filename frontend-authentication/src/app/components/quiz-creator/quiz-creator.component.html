@@ -1,7 +1,8 @@
-<mat-stepper orientation="vertical" [linear]=true #stepper>
-    <mat-step [stepControl]="firstQuestion">
-        <form [formGroup]="firstQuestion" name="form1">
-            <ng-template matStepLabel class="questionNr">Question nr. 1</ng-template>
+<form [formGroup]="formGroup" name="form1">
+    <mat-vertical-stepper [linear]="true" formArrayName="questions" #stepper>
+        <div *ngIf="formGroup">
+        <mat-step [formGroupName]="i" *ngFor="let question of getQuestions(); let i = index">
+            <ng-template matStepLabel>Question nr. {{i + 1}}</ng-template>
             <mat-form-field appearance="fill">
                 <mat-label class="labels">Question</mat-label>
                 <input class="inputs" matInput placeholder="Enter the question" required formControlName="question">
@@ -9,163 +10,51 @@
             <br>
             <mat-form-field appearance="fill">
                 <mat-label class="labels">Correct answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the correct answer" formControlName="correct" required>
+                <input class="inputs" matInput placeholder="Enter the correct answer" required formControlName="correct">
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
                 <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="wrong" required>
+                <input class="inputs" matInput placeholder="Enter the wrong answer" required formControlName="wrong">
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
                 <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="bad" required>
+                <input class="inputs" matInput placeholder="Enter the wrong answer" required formControlName="wrong1">
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
                 <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="worst" required>
-            </mat-form-field>
-            <div class="next">
-                <button mat-stroked-button color="accent" matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="secondQuestion">
-        <form [formGroup]="secondQuestion"  name="form2">
-            <ng-template matStepLabel class="questionNr">Question nr. 2</ng-template>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Question</mat-label>
-                <input class="inputs" matInput placeholder="Enter the question" formControlName="question" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Correct answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the correct answer" formControlName="correct" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="wrong" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="bad" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="worst" required>
-            </mat-form-field>
-            <br>
-            <div class="next">
-                <button mat-stroked-button color="accent" matStepperPrevious>Back</button>
-                <button mat-stroked-button color="accent" matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="thirdQuestion">
-        <form [formGroup]="thirdQuestion"  name="form3">
-            <ng-template matStepLabel class="questionNr">Question nr. 3</ng-template>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Question</mat-label>
-                <input class="inputs" matInput placeholder="Enter the question" formControlName="question" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Correct answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the correct answer" formControlName="correct" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="wrong" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="bad" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="worst" required>
-            </mat-form-field>
-            <br>
-            <div class="next">
-                <button mat-stroked-button color="accent" matStepperPrevious>Back</button>
-                <button mat-stroked-button color="accent" matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="fourthQuestion">
-        <form [formGroup]="fourthQuestion"  name="form4">
-            <ng-template matStepLabel class="questionNr">Question nr. 4</ng-template>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Question</mat-label>
-                <input class="inputs" matInput placeholder="Enter the question" formControlName="question" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Correct answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the correct answer" formControlName="correct" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="wrong" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="bad" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="worst" required>
-            </mat-form-field>
-            <br>
-            <div class="next">
-                <button mat-stroked-button color="accent" matStepperPrevious>Back</button>
-                <button mat-stroked-button color="accent" matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="fifthQuestion">
-        <form [formGroup]="fifthQuestion"  name="form5">
-            <ng-template matStepLabel class="questionNr">Question nr. 5</ng-template>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Question</mat-label>
-                <input class="inputs" matInput placeholder="Enter the question" formControlName="question" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Correct answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the correct answer" formControlName="correct" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="wrong" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="bad" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label class="labels">Wrong answer</mat-label>
-                <input class="inputs" matInput placeholder="Enter the wrong answer" formControlName="worst" required>
-            </mat-form-field>
-            <br>
-            <div class="next">
-                <button mat-stroked-button color="accent" matStepperPrevious>Back</button>
-                <button mat-stroked-button color="accent" (click)="onSubmit()" [mat-dialog-close]>Save quiz</button>
-                <button mat-stroked-button color="accent" (click)="stepper.reset()">Reset</button>
-            </div>
-        </form>
-    </mat-step>
-</mat-stepper>
+                <input class="inputs" matInput placeholder="Enter the wrong answer" required formControlName="wrong2">
+            </mat-form-field>        
+        <!-- <div *ngFor="let new_div of newWrongs">
+                <mat-form-field appearance="fill">
+                    <mat-label class="labels">Wrong answer</mat-label>
+                    <input class="inputs" matInput placeholder="Enter the wrong answer" required formControlName="wrong1">
+                    <button mat-icon-button color="primary" style="float:right; color: white" (click)="deleteWrongAnswer()" matSuffix>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-form-field>
+        </div> -->
+        <!-- <button [disabled]="maxWrongs" class="addNew" mat-icon-button color="primary" (click)="addNewWrongAnswer()">
+            <mat-icon>add</mat-icon>
+        </button> -->
+        <br><br>
+        <div>
+            <button mat-stroked-button color="accent" style="float:left;" matStepperPrevious (click)="backQuestion()">Back</button>
+            <button mat-stroked-button color="accent" style="float:right;" matStepperNext (click)="nextQuestion()">Next</button>
+        </div>
+        </mat-step>
+    </div>
+    </mat-vertical-stepper> 
+</form>
+<br><br>
+
+<div class="next" style="float:left;">
+    <button mat-raised-button (click)="addItem()">
+        Add question
+    </button>
+</div>
+<div class="next" style="float:right;">
+    <button mat-stroked-button color="accent" (click)="onSubmit()" [mat-dialog-close]>Save quiz</button>
+</div>

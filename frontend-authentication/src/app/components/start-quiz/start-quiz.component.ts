@@ -23,14 +23,15 @@ export class StartQuizComponent implements OnInit {
   public username: string = '';
   public firstname: string = '';
   public lastname: string = '';
-  public typeOfEvaluation: string = 'eval1';
+  public typeOfEvaluation: string = '';
   public email: string = '';
 
   constructor(private _handleQuestion: HandleQuestionService, private _router: Router, private _tokenStorageService: TokenStorageService,
               private _evaluationStudent: EvaluationStudentService) { }
 
   ngOnInit(): void {
-    this.getData("eval1.json");
+    this.typeOfEvaluation = this._evaluationStudent.getTypeOfEvaluation();
+    this.getData(this.typeOfEvaluation + ".json");
     this.startTimer();
     const user = this._tokenStorageService.getUser();
     this.username = user.username;
@@ -46,6 +47,7 @@ export class StartQuizComponent implements OnInit {
   public getData(data: string) {
     this._handleQuestion.getEvaluation(data).subscribe(result => {
       this.questions = result.questions;
+      console.log(JSON.stringify(this.questions));
     })
   }
 
@@ -59,7 +61,7 @@ export class StartQuizComponent implements OnInit {
 
   public evaluate(questionNr: number, answer: any, answersList: any) {
     if(Object.keys(answer).toString() == Object.keys(answersList[0]).toString()) {
-      this.grade += 1.8;
+      this.grade += 9 / this.questions.length;
       this.correct++;
     }
     else {

@@ -1,8 +1,17 @@
-<div class="catalog">
-  <h1 style="text-align: center;">Catalog <i class='fas fa-award'></i></h1>
-  <grades-catalog></grades-catalog>
-</div>
-<br><br>
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header class="titles">
+      <mat-panel-title>
+        Catalog
+      </mat-panel-title>
+      <mat-panel-description>Students's result from evaluation</mat-panel-description>
+    </mat-expansion-panel-header>
+    <br>
+    <grades-catalog></grades-catalog>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<br>
 
 <mat-accordion>
   <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -50,7 +59,7 @@
           <mat-panel-title class="week">First evaluation - week 5</mat-panel-title>
         </mat-expansion-panel-header>
         <div class="evaluateButton">
-          <button class="newUploadButton" mat-button (click)="openDialog()"> <mat-icon>note_add</mat-icon> Create a new quiz</button>
+          <button class="newUploadButton" mat-button (click)='openDialog("first")'> <mat-icon>note_add</mat-icon> Create quiz for the first evaluation</button>
         </div><br>
       </mat-expansion-panel>
 
@@ -59,7 +68,7 @@
           <mat-panel-title class="week">Second evaluation - week 9</mat-panel-title>
         </mat-expansion-panel-header>
         <div class="evaluateButton">
-          <button class="newUploadButton" mat-button (click)="openDialog()"><mat-icon>note_add</mat-icon> Create a new quiz</button> 
+          <button class="newUploadButton" mat-button (click)='openDialog("second")'><mat-icon>note_add</mat-icon> Create quiz for the second evaluation </button> 
         </div><br>
       </mat-expansion-panel>
 
@@ -68,7 +77,7 @@
           <mat-panel-title class="week">Final evaluation - week 14</mat-panel-title>
         </mat-expansion-panel-header>
         <div class="evaluateButton">
-          <button class="newUploadButton" mat-button (click)="openDialog()"> <mat-icon>note_add</mat-icon> Create a new quiz </button> 
+          <button class="newUploadButton" mat-button (click)='openDialog("final")'> <mat-icon>note_add</mat-icon>  Create quiz for the final evaluation </button> 
         </div><br>
       </mat-expansion-panel>
     </mat-accordion>

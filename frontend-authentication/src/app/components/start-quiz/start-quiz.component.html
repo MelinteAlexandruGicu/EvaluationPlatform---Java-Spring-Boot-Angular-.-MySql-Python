@@ -26,8 +26,8 @@
                         <mat-list-option *ngFor="let answer of questions[currentQuestion]?.answers" [value]="answer" (click)="evaluate(currentQuestion + 1, answer, questions[currentQuestion]?.answers)">
                         <div *ngIf="answer.correct">{{answer.correct}}</div>
                         <div *ngIf="answer.wrong">{{answer.wrong}}</div>
-                        <div *ngIf="answer.bad">{{answer.bad}}</div>
-                        <div *ngIf="answer.worst">{{answer.worst}}</div>
+                        <div *ngIf="answer.wrong1">{{answer.wrong1}}</div>
+                        <div *ngIf="answer.wrong2">{{answer.wrong2}}</div>
                         </mat-list-option>
                     </mat-selection-list>
             </div>  
@@ -41,11 +41,10 @@
         <div class="d-flex justify-content-between">
             <button class="buttonEvaluation" mat-raised-button color="primary" [mat-dialog-close]="noTime">Submit</button>
             <div class="d-flex justify-content-between">
-                <button class="questionViewButton" mat-raised-button color="primary" [disabled] = "currentQuestion != 0 " >Question nr 1</button>
-                <button class="questionViewButton" mat-raised-button color="primary" [disabled] = "currentQuestion != 1 " >Question nr 2</button>
-                <button class="questionViewButton" mat-raised-button color="primary" [disabled] = "currentQuestion != 2 " >Question nr 3</button>
-                <button class="questionViewButton" mat-raised-button color="primary" [disabled] = "currentQuestion != 3 " >Question nr 4</button>
-                <button class="questionViewButton" mat-raised-button color="primary" [disabled] = "currentQuestion != 4 " >Question nr 5</button>
+                <div *ngFor="let item of [].constructor(questions.length); let i = index">
+                    <button class="questionViewButton" mat-raised-button color="primary" [disabled] = "currentQuestion != i " >Question nr {{i + 1}}</button>
+                 </div>
+
             </div>
             <button [disabled]="quizDone" class="buttonEvaluation" mat-raised-button color="primary" (click) = "nextQuestion()">Next</button>
         </div>

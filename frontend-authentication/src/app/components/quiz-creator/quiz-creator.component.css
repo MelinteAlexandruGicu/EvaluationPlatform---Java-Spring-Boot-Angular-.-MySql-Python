@@ -69,3 +69,15 @@ button:hover {
     background-color: #402218;
     opacity: 0.6;
 }
+
+.addNew{
+    postition: absolute;
+    left:50%;
+    color: white;
+    border: 0px;
+}
+
+::ng-deep .mat-step:last-child .mat-vertical-content-container {
+    border: none;
+    padding-bottom: 30px;
+}

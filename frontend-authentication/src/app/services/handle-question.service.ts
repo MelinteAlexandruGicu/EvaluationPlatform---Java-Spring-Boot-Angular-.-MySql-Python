@@ -10,6 +10,7 @@ export class HandleQuestionService {
   constructor(private http: HttpClient) { }
 
   public getEvaluation(evaluationName: string) {
+    console.log(evaluationName);
     return this.http.get<any>("assets/evaluations/" + evaluationName);
   }
 
