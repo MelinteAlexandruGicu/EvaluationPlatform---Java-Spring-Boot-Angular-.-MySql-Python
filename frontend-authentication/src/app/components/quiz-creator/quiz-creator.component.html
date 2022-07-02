@@ -1,7 +1,7 @@
 <form [formGroup]="formGroup" name="form1">
-    <mat-vertical-stepper [linear]="true" formArrayName="questions" #stepper>
+    <mat-vertical-stepper formArrayName="questions" #stepper>
         <div *ngIf="formGroup">
-        <mat-step [formGroupName]="i" *ngFor="let question of getQuestions(); let i = index">
+        <mat-step [formGroupName]="i" #i *ngFor="let question of getQuestions(); let i = index">
             <ng-template matStepLabel>Question nr. {{i + 1}}</ng-template>
             <mat-form-field appearance="fill">
                 <mat-label class="labels">Question</mat-label>
@@ -26,25 +26,14 @@
             <mat-form-field appearance="fill">
                 <mat-label class="labels">Wrong answer</mat-label>
                 <input class="inputs" matInput placeholder="Enter the wrong answer" required formControlName="wrong2">
-            </mat-form-field>        
-        <!-- <div *ngFor="let new_div of newWrongs">
-                <mat-form-field appearance="fill">
-                    <mat-label class="labels">Wrong answer</mat-label>
-                    <input class="inputs" matInput placeholder="Enter the wrong answer" required formControlName="wrong1">
-                    <button mat-icon-button color="primary" style="float:right; color: white" (click)="deleteWrongAnswer()" matSuffix>
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </mat-form-field>
-        </div> -->
-        <!-- <button [disabled]="maxWrongs" class="addNew" mat-icon-button color="primary" (click)="addNewWrongAnswer()">
-            <mat-icon>add</mat-icon>
-        </button> -->
+            </mat-form-field>
         <br><br>
         <div>
             <button mat-stroked-button color="accent" style="float:left;" matStepperPrevious (click)="backQuestion()">Back</button>
-            <button mat-stroked-button color="accent" style="float:right;" matStepperNext (click)="nextQuestion()">Next</button>
+            <button *ngIf = "stepper.selectedIndex != getQuestions().length - 1" mat-stroked-button color="accent" style="float:right;" (click)="nextQuestion()" matStepperNext >Next</button>
         </div>
         </mat-step>
+        
     </div>
     </mat-vertical-stepper> 
 </form>

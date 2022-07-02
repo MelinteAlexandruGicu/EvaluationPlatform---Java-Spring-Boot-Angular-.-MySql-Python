@@ -1,0 +1,80 @@
+.uploadButton {
+    background-color: #dcb99b;
+    color: black;
+    border: 1px solid #402218;
+    font-size: 20px;
+    font-family: "Trirong", serif;
+    margin-right: 20px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.uploadButton:hover:enabled {
+    background-color: #402218;
+    color: white;
+}
+
+.uploadButton:disabled {
+    background-color: #ffdcc9;
+    color: #402218;
+    border: solid 2px #402218;
+    opacity:0.6;
+}
+
+.choose {
+    background-color: #dcb99b;
+    color: black;
+    border: 1px solid #402218;
+    font-size: 20px;
+    font-family: "Trirong", serif;
+    margin-right: 50px;
+    margin-top: 10px;
+    border-radius: 6px;
+    height:40px;
+}
+
+.choose:hover:enabled {
+    background-color: #402218;
+    color: white;
+}
+
+.alert .alert-secondary {
+    background-color: #402218;
+    color: white;
+}
+
+li{
+    background-color: #402218;
+    color: #ffdcc9;
+    border-radius:6px;
+    padding: 1em;
+    font-size:20px;
+    font-weight: 500;
+    font-family: "Trirong", serif;
+    width: 20%;
+    position: relative;
+    left:38%;
+   }
+
+.delete {
+    color: #402218;
+    background-color: #ffdcc9;
+    margin-top: -10px;
+}
+
+.delete:hover {
+    color: #22120c;
+    background-color: #dcb99b;
+    font-size:21px
+}
+
+.alert-secondary {
+    background-color: #dcb99b;
+    color: #402218;
+    border: 1px solid #402218;
+    width:40%;
+    font-size: 20px;
+    font-family: "Trirong", serif;
+    left:30%;
+    text-align: center;
+}

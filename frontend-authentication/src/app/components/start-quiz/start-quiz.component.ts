@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { EvaluationStudentService } from 'src/app/services/evaluation-student.service';
+import { FileUploadService } from 'src/app/services/file-upload.service';
 import { HandleQuestionService } from 'src/app/services/handle-question.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
@@ -14,7 +15,7 @@ export class StartQuizComponent implements OnInit {
   public questions: any = [];
   public currentQuestion: number = 0;
   public grade: number  = 1;
-  public timer: number  = 10;
+  public timer: number  = 0;
   public interval$: any; // $ means observable
   public noTime: boolean = false;
   public correct: number  = 0;
@@ -25,9 +26,13 @@ export class StartQuizComponent implements OnInit {
   public lastname: string = '';
   public typeOfEvaluation: string = '';
   public email: string = '';
+  public content: any;
+  public questionContent: Array<{"eval": string, "content": string}> = [];
+  public incrementGrade: number = 0;
+  
 
   constructor(private _handleQuestion: HandleQuestionService, private _router: Router, private _tokenStorageService: TokenStorageService,
-              private _evaluationStudent: EvaluationStudentService) { }
+              private _evaluationStudent: EvaluationStudentService, private _uploadService: FileUploadService) { }
 
   ngOnInit(): void {
     this.typeOfEvaluation = this._evaluationStudent.getTypeOfEvaluation();
@@ -45,10 +50,21 @@ export class StartQuizComponent implements OnInit {
   }
 
   public getData(data: string) {
-    this._handleQuestion.getEvaluation(data).subscribe(result => {
-      this.questions = result.questions;
-      console.log(JSON.stringify(this.questions));
-    })
+    this._uploadService.viewQuizzesFromStorage().subscribe(result => {
+      this.content = result;
+      console.log(this.content)
+      this.content.forEach( (element: any) => {
+          this.questionContent.push({"eval": element.name, "content": element.content});
+      });
+      this.questionContent.forEach( (element: any) => {
+        if(element.eval == data) {
+          this.questions = JSON.parse(element.content).questions;
+          this.timer = this.questions.length * 60
+          this.incrementGrade = 9 / this.questions.length;
+        };
+      });
+    });
+    
   }
 
   public nextQuestion() {
@@ -61,7 +77,7 @@ export class StartQuizComponent implements OnInit {
 
   public evaluate(questionNr: number, answer: any, answersList: any) {
     if(Object.keys(answer).toString() == Object.keys(answersList[0]).toString()) {
-      this.grade += 9 / this.questions.length;
+      this.grade += this.incrementGrade;
       this.correct++;
     }
     else {
@@ -75,7 +91,7 @@ export class StartQuizComponent implements OnInit {
       this.currentQuestion++;
     }
     
-    this._handleQuestion.setGrade(this.grade);
+    this._handleQuestion.setFeedback(this.grade, this.correct, this.wrong);
   }
 
   public startTimer() {
@@ -107,5 +123,7 @@ export class StartQuizComponent implements OnInit {
       error => {
         console.log(error);
       });
+    
+    this._evaluationStudent.setTypeOfEvaluation(this.typeOfEvaluation);
   }
 }

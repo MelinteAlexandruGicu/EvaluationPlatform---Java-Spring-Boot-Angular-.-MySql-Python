@@ -1,0 +1,17 @@
+<label>
+    <input type="button" class="choose" value="Choose a quiz" onclick="document.getElementById('file').click();" />
+    <input type="file" (change)="selectFile($event)" id="file" style="display: none" />
+</label>
+    <button mat-raised-button class="uploadButton" [disabled]="!selectedFiles" (click)="uploadFile()" >
+    <mat-icon>save_alt</mat-icon>
+</button><br><br>
+  <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
+  <div>
+    <ul *ngFor="let file of quizzesInfos | async; let i = index" style="list-style-type: none;">
+      <li>
+        <a> <i class="fa fa-file-text" aria-hidden="true"></i> {{ file.name }}</a>
+        <button class="delete" mat-icon-button color="primary" style="float:right;" (click)="removeQuiz(file.id)" matSuffix> <mat-icon>delete</mat-icon>
+        </button> 
+      </li>
+    </ul>
+  </div>

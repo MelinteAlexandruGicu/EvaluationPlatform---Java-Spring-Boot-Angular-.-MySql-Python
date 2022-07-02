@@ -4,7 +4,8 @@ import com.evaluation.model.Student;
 import com.evaluation.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -18,11 +19,11 @@ public class StudentService {
         this.studentRepository.save(student);
     }
 
-    public Stream<Student> getAllStudents() {
-        return this.studentRepository.findAll().stream();
+    public List<Student> getAllStudents() {
+        return this.studentRepository.findAll();
     }
 
-    public Stream<Student> getStudentsByEvaluation(String evaluationType) {
-        return this.studentRepository.findStudentByEvaluationType(evaluationType).stream();
+    public List<Student> getStudentsByEvaluation(String evaluationType) {
+        return this.studentRepository.findStudentByEvaluationType(evaluationType);
     }
 }

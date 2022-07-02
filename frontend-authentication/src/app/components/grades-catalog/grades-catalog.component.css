@@ -1,13 +1,60 @@
-table, th, td {
+th.mat-header-cell {
+    text-align: center;
+    font-size: 17px;
+    background-color: #402218;
+    color: white;
+    padding-right: 100px;
+    padding-left: 100px;
+}
+
+td.mat-cell {
+    text-align: center;
+    font-size: 17px;
+    background-color: #dcb99b;
+    border-bottom: 1px solid #402218;
+    color: black;
+    
+}
+
+.nr {
+    padding-left:125px !important;
+}
+
+.eval {
+    padding-right:125px !important;
+}
+
+.catalog {
+    left:7%;
+    position: relative;
+}
+
+.filterButton {
+    background-color: #dcb99b;
+    color: black;
     border: 1px solid #402218;
-    font-size:20px;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
+    font-size: 20px;
+    font-family: "Trirong", serif;
+    margin-right: 20px;
+    margin-top: 10px;
+    border-radius: 6px;
+    font-weight: 800;
 }
 
-div {
-    margin-left: 300px;
+.filterButton:hover {
+    background-color: #402218;
+    color: white;
 }
 
+.filterButton:focus {
+    background-color: #402218;
+    color: white;
+}
+
+.buttons {
+    text-align:center
+}
+
+
+
+    

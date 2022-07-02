@@ -15,6 +15,7 @@ import com.userauthentication.services.UserDetailsImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,9 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -125,4 +124,48 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully in EvalPlatform!"));
     }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> allUsers() {
+        try {
+            List<User> users = userRepository.findAll();
+            if (users.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") Long id) {
+        try {
+            userRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/user-update-role/{id}")
+    public ResponseEntity<MessageResponse> updateRole(@PathVariable("id") Long id, @RequestParam Set<Role> roles) {
+        Optional<User> user = userRepository.findById(id).map(user1 -> {
+            user1.setRoles(roles);
+            return userRepository.save(user1);
+        });
+        return ResponseEntity.ok(new MessageResponse("User updated"));
+    }
+
+    @PostMapping("/user-update-username/{id}")
+    public ResponseEntity<MessageResponse> updateUsername(@PathVariable("id") Long id, @RequestParam String username) {
+        System.out.println(username);
+        Optional<User> user = userRepository.findById(id);
+        user.stream().map(user1 -> {
+            user1.setFirstname(username);
+            return userRepository.save(user1);
+    });
+        return ResponseEntity.ok(new MessageResponse("User updated"));
+    }
+
 }

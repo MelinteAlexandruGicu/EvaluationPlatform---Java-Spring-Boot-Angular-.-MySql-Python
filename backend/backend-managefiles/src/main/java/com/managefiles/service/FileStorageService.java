@@ -38,9 +38,9 @@ public class FileStorageService {
         coursesStorageRepository.save(FileDB);
     }
 
-    public void storeQuizzes(MultipartFile file) throws IOException {
+    public void storeQuizzes(MultipartFile file, String content) throws IOException {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-        QuizStorage FileDB = new QuizStorage(fileName, file.getContentType(), file.getBytes());
+        QuizStorage FileDB = new QuizStorage(fileName, file.getContentType(), content, file.getBytes());
         quizzesStorageRepository.save(FileDB);
     }
 
@@ -58,6 +58,10 @@ public class FileStorageService {
 
     public void deleteCourse(String id) {
         coursesStorageRepository.deleteById(id);
+    }
+
+    public void deleteQuiz(Long id) {
+        quizzesStorageRepository.deleteById(id);
     }
 
     public Stream<AppStorage> getAllApps() {

@@ -1,6 +1,7 @@
 package com.managefiles.controller;
 
 import com.managefiles.message.ResponseFile;
+import com.managefiles.message.ResponseFileQuiz;
 import com.managefiles.message.ResponseMessage;
 import com.managefiles.model.AppStorage;
 import com.managefiles.model.CoursesStorage;
@@ -33,7 +34,7 @@ public class FileController {
             message = "Your application (" + file.getOriginalFilename() + " has been uploaded)!";
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         } catch (Exception e) {
-            message = "Error -- application (" + file.getOriginalFilename() + ") has not been uploaded!";
+            message = "Error -- application (" + file.getOriginalFilename() + ") has not been saved! The file already exist";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
@@ -46,20 +47,20 @@ public class FileController {
             message = "Your course (" + file.getOriginalFilename() + ") has been uploaded!";
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         } catch (Exception e) {
-            message = "Error -- course (" + file.getOriginalFilename() + ") has not been uploaded!";
+            message = "Error -- course (" + file.getOriginalFilename() + ") has not been saved! The file already exist";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
 
     @PostMapping("/upload-quiz")
-    public ResponseEntity<ResponseMessage> uploadQuiz(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ResponseMessage> uploadQuiz(@RequestParam("file") MultipartFile file, @RequestParam String content) {
         String message;
         try {
-            fileStorageService.storeQuizzes(file);
+            fileStorageService.storeQuizzes(file, content);
             message = "Your Quiz (" + file.getOriginalFilename() + " has been saved)!";
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         } catch (Exception e) {
-            message = "Error -- quiz (" + file.getOriginalFilename() + ") has not been saved!";
+            message = "Error -- quiz (" + file.getOriginalFilename() + ") has not been saved! The file already exist";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
@@ -99,20 +100,32 @@ public class FileController {
     }
 
     @GetMapping("/files-quizzes")
-    public ResponseEntity<List<ResponseFile>> getListQuizzes() {
-        List<ResponseFile> files = fileStorageService.getAllQuizzes().map(quizStorage -> {
+    public ResponseEntity<List<ResponseFileQuiz>> getListQuizzes() {
+        List<ResponseFileQuiz> files = fileStorageService.getAllQuizzes().map(quizStorage -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("/api/fileStorage/files-quizzes/")
-                    .path(quizStorage.getId())
+                    .path(quizStorage.getId().toString())
                     .toUriString();
-            return new ResponseFile(
+            return new ResponseFileQuiz(
+                    quizStorage.getId(),
                     quizStorage.getName(),
                     fileDownloadUri,
                     quizStorage.getType(),
+                    quizStorage.getContent(),
                     quizStorage.getData().length);
         }).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+
+    @DeleteMapping("/files-quizzes/{id}")
+    public ResponseEntity<HttpStatus> deleteQuiz(@PathVariable("id") Long id) {
+        try {
+            fileStorageService.deleteQuiz(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/files-app/{id}")

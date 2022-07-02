@@ -8,6 +8,10 @@
     padding-bottom: 10px;
 }
 
+.description {
+    color: white !important;
+}
+
 .titles{
     padding-top: 1px !important;
     background-color: #402218 !important;
@@ -48,7 +52,7 @@ i {
     color:red;
 }
 
-.catalog{
+.catalog {
     width: 70%;
     display: block;
     margin-left: auto;
@@ -75,11 +79,13 @@ i {
     margin-right: 20px;
     margin-top: 10px;
     border-radius: 6px;
+    font-weight: 800;
 }
 
 .newUploadButton:hover {
     background-color: #402218;
     color: white;
+    font-size:23px;
 }
 
 .backdropBackground {
@@ -102,6 +108,7 @@ i {
 .uploadButton:hover:enabled {
     background-color: #402218;
     color: white;
+    font-size: 23px;
 }
 
 .uploadButton:disabled {

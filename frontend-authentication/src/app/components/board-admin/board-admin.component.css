@@ -1,0 +1,44 @@
+th.mat-header-cell {
+    text-align: center;
+    font-size: 17px;
+    background-color: #402218;
+    color: white;
+    padding-right: 100px;
+    padding-left: 100px;
+}
+
+td.mat-cell {
+    text-align: center;
+    font-size: 17px;
+    background-color: #dcb99b;
+    border-bottom: 1px solid #402218;
+    color: black;
+    
+}
+
+.nr {
+    padding-left:125px !important;
+}
+
+div {
+    left:5%;
+    position: fixed;
+}
+
+.mat-icon-button {
+    color: #ffdcc9;
+    background-color: #402218;
+}
+
+.mat-icon-button {
+    color: #ffdcc9;
+    background-color: #402218;
+}
+
+.mat-icon-button:hover {
+    color: #ffdcc9;
+    background-color: #22120c;
+    font-size:21px
+}
+
+    

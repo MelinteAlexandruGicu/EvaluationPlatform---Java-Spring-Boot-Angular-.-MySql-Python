@@ -1,21 +1,41 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
-      <h3>
-        <strong>Profile:</strong>
-        {{ currentUser.username }}
-      </h3>
-    <p>
-      <strong>Email:</strong>
-      {{ currentUser.email }}
-    </p>
-    <strong>Roles:</strong>
-    <ul>
-      <li *ngFor="let role of currentUser.roles">
-        {{ role }}
-      </li>
-    </ul>
-    <button> Edit profile </button>
+  <mat-card class="welcome">     
+    <div *ngIf="currentUser; else loggedOut">
+        <div>
+          <b>Username: </b> {{ currentUser.username }}
+        </div>
+        <br>
+        <div>
+          <b>Email: </b> {{ currentUser.email }}
+        </div>
+        <br>
+        <div>
+          <b>Firstname: </b>{{ currentUser.firstname }}
+        </div>
+        <br>
+        <div>
+          <b>Lastname: </b> {{ currentUser.lastname }}
+        </div>
+        <br>
+      <div *ngFor="let role of currentUser.roles">
+        <div *ngIf="role == 'ROLE_STUDENT'"><b>Titulatura: </b>Student</div>
+        <div *ngIf="role == 'ROLE_TEACHER'"><b>Titulatura: </b>Teacher</div>
+        <div *ngIf="role == 'ROLE_ADMIN'"><b>Titulatura: </b>Administrator</div>
+      </div>
+      <br>
+      <button class="editButton" mat-stroked-button (click)="updateUser(currentUser.id, 'AlexandruMelinte')" color="accent">Edit profile</button>
   </div>
   <ng-template #loggedOut>
     Please login.
   </ng-template>
+</mat-card>
+
+<div style="text-align:center;">
+  <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [title]="chartOptions.title"
+    [grid]="chartOptions.grid"
+  ></apx-chart>
+</div>
  

@@ -41,7 +41,7 @@ export class AppUploadComponent implements OnInit {
             if (err.error && err.error.message) {
               this.message = err.error.message;
             } else {
-              this.message = 'Could not upload the file for some reason!';
+              this.message = 'Could not upload the file! The size of the file is too long!';
             }
             this.currentFile = undefined;
           }

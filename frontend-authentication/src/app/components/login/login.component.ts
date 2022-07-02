@@ -16,6 +16,9 @@ export class LoginComponent implements OnInit {
   };
   public hide: boolean = true;
   public isLoggedIn: boolean = false;
+  public showAdminBoard: boolean = false;
+  public showTeacherBoard: boolean = false;
+  public showStudentBoard: boolean = false;
   public isLoginFailed: boolean = false;
   public errorMessage: string = '';
   public roles: string[] = [];
@@ -27,6 +30,10 @@ export class LoginComponent implements OnInit {
       this.isLoggedIn = true;
       this.roles = this._tokenStorage.getUser().roles;
     }
+
+    this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+    this.showTeacherBoard = this.roles.includes('ROLE_TEACHER');
+    this.showStudentBoard = this.roles.includes('ROLE_STUDENT');
   }
 
   public onSubmit(): void {
@@ -39,7 +46,7 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this._tokenStorage.getUser().roles;
         this.reloadPage();
-      },
+        },
       err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;

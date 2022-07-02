@@ -6,12 +6,12 @@
                 <a routerLink="/admin" class="nav-link" style="color: white; padding-left: 30px; ">
                     <i class="fa fa-user-cog fa-lg mr-1" style="font-size:20px;"></i>Admin Board</a>
             </li>
-            <li class="nav-item pl-1" *ngIf="isLoggedIn && showTeacherBoard || showAdminBoard">
+            <li class="nav-item pl-1" *ngIf="isLoggedIn && showTeacherBoard">
                 <a routerLink="/teacher" class="nav-link" style="color: white; padding-left: 30px;">
                     <i class="fa fa-chalkboard-teacher fa-lg mr-1" style="font-size:20px;"></i>Teacher Board</a>
             </li>
             <li class="nav-item pl-1">
-                <a routerLink="/student" class="nav-link" *ngIf="isLoggedIn && showStudentBoard || showAdminBoard" style="color: white; padding-left: 30px;">
+                <a routerLink="/student" class="nav-link" *ngIf="isLoggedIn && showStudentBoard" style="color: white; padding-left: 30px;">
                     <i class="fa fa-user-graduate fa-lg mr-1" style="font-size:20px;"></i>Student Board</a>
             </li>
         </ul>

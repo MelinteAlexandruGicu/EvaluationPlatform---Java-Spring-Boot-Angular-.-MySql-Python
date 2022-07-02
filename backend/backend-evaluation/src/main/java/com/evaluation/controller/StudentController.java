@@ -6,11 +6,8 @@ import com.evaluation.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -30,10 +27,30 @@ public class StudentController {
     }
 
     @GetMapping("/get-students")
-    public ResponseEntity<?> getAllStudents() {
-        Stream<Student> students = studentService.getAllStudents();
-        return ResponseEntity.status(HttpStatus.OK).body(students.collect(Collectors.toList()));
+    public ResponseEntity<List<Student>> allStudents() {
+        try {
+            List<Student> students = studentService.getAllStudents();
+            if (students.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(students, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+    @GetMapping("/student-eval-type/{evaluationType}")
+    public ResponseEntity<List<Student>> findByEvaluationType(@PathVariable String evaluationType) {
+        try {
+            List<Student> students = studentService.getStudentsByEvaluation(evaluationType);
+            if (students.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(students, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 
 }

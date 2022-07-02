@@ -17,9 +17,16 @@ export class BoardStudentComponent implements OnInit {
   public appsInfos?: Observable<any>;
   public coursesInfos?: Observable<any>;
   public dialogClosed: boolean = false;
-  public grade: number = 1;
+  public first: boolean = false;
+  public second: boolean = false;
+  public final: boolean = false;
+  public feedback: any;
+  public feedbackFinalTest: any;
+  public feedbackFirstTest: any;
+  public feedbackSecondTest: any;
   public username: string = '';
   public typeOfEvaluation: string = '';
+  public grade: number = 1;
   
   constructor(private _uploadService: FileUploadService, public dialog: MatDialog, private _handleQuestion: HandleQuestionService, private _tokenStorageService: TokenStorageService,
     private _evaluationStudent: EvaluationStudentService) { }
@@ -29,8 +36,29 @@ export class BoardStudentComponent implements OnInit {
     this.coursesInfos = this._uploadService.viewCoursesFromStorage();
     const user = this._tokenStorageService.getUser();
     this.username = user.username;
+    let feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'firstEvaluation');
+    console.log(feedbackLocalStorage)
+    if(feedbackLocalStorage != null){
+      feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
+      feedbackLocalStorage = feedbackLocalStorage.replace(']', '');
+      this.feedbackFirstTest = feedbackLocalStorage.split(",") as Array<String>;
+    }
+    feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'secondEvaluation');
+    console.log(feedbackLocalStorage)
+    if(feedbackLocalStorage != null){
+      feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
+      feedbackLocalStorage = feedbackLocalStorage.replace(']', '');
+      this.feedbackSecondTest = feedbackLocalStorage.split(",") as Array<String>;
+    }
+    
+    feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'finalEvaluation');
+    console.log(feedbackLocalStorage)
+    if(feedbackLocalStorage != null){
+      feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
+      feedbackLocalStorage = feedbackLocalStorage.replace(']', '');
+      this.feedbackFinalTest = feedbackLocalStorage.split(",") as Array<String>;
+    }
   }
-
 
   public openDialogQuiz(evaluation: string): void {
     const dialogRef = this.dialog.open(StartQuizComponent, {
@@ -53,14 +81,44 @@ export class BoardStudentComponent implements OnInit {
     this._evaluationStudent.setTypeOfEvaluation(this.typeOfEvaluation);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.dialogClosed = true;
       localStorage.setItem('oneAttempt' + this.typeOfEvaluation + this.username, JSON.stringify(this.dialogClosed));
-      this.grade = this._handleQuestion.getGrade();
+      this.feedback = this._handleQuestion.getFeedback();
+      localStorage.setItem('feedback' + this.typeOfEvaluation + this.username, JSON.stringify(this.feedback));
+      
+      let feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'firstEvaluation');
+      console.log(feedbackLocalStorage)
+      if(feedbackLocalStorage != null){
+        feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
+        feedbackLocalStorage = feedbackLocalStorage.replace(']', '');
+        this.feedbackFirstTest = feedbackLocalStorage.split(",") as Array<String>;
+      }
+      feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'secondEvaluation');
+      console.log(feedbackLocalStorage)
+      if(feedbackLocalStorage != null){
+        feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
+        feedbackLocalStorage = feedbackLocalStorage.replace(']', '');
+        this.feedbackSecondTest = feedbackLocalStorage.split(",") as Array<String>;
+      }
+      
+      feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'finalEvaluation');
+      console.log(feedbackLocalStorage)
+      if(feedbackLocalStorage != null){
+        feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
+        feedbackLocalStorage = feedbackLocalStorage.replace(']', '');
+        this.feedbackFinalTest = feedbackLocalStorage.split(",") as Array<String>;
+      }
+        
     });
   }
 
   public getOneAttemptFromLocalStorage(username: string, evaluation: string) {
     return localStorage.getItem('oneAttempt' + evaluation + username);
   }
+
+  public getFeedbackFromLocalStorage(username: string, evaluation: string) {
+    return localStorage.getItem('feedback' + evaluation + username);
+  }
+
+  
 }

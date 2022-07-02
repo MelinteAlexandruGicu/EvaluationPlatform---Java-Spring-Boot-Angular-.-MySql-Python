@@ -1,0 +1,30 @@
+.welcome {
+    background-color: #dcb99b;
+    border: solid #402218 2px;
+    border-radius: 6px;
+    color: #402218;
+    font-size: 27px;
+    font-family: "Trirong", serif;
+    margin: 0 auto;
+    width: 60%;
+}
+
+.editButton {
+    background-color: #402218;
+    color: white;
+    border: 1px solid #402218;
+    font-size: 20px;
+    font-family: "Trirong", serif;
+    margin-right: 20px;
+    margin-top: 10px;
+    border-radius: 6px;
+    font-weight: 800;
+}
+
+.editButton:hover {
+    background-color: #22120c;
+    color: white;
+}
+
+
+   

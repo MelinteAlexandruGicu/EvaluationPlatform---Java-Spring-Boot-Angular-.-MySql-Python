@@ -46,7 +46,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @ToString.Exclude
-    private Set<Role> roles = new HashSet<>(); //un singur rol
+    private Set<Role> roles = new HashSet<>();
 
     public User(String username, String firstname, String lastname, String email, String password) {
         this.username = username;

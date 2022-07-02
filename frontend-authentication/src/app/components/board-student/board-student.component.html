@@ -45,10 +45,8 @@
   >
     <mat-expansion-panel-header class="titles">
       <mat-panel-title>Evaluation</mat-panel-title>
-      <mat-panel-description>14 weeks</mat-panel-description>
     </mat-expansion-panel-header>
     <br>
-    <!-- level 02 -->
     <mat-accordion>
       <mat-expansion-panel
         (opened)="panelOpenState = true"
@@ -56,43 +54,58 @@
       >
         <mat-expansion-panel-header class="subtitle">
           <mat-panel-title class="week">Week 5</mat-panel-title>
-          <mat-panel-description class="description">Evaluate app 1</mat-panel-description>
+          <mat-panel-description class="description">First Evaluation</mat-panel-description>
         </mat-expansion-panel-header>
         <button [disabled]="getOneAttemptFromLocalStorage(username, 'firstEvaluation')" class="startQuizButton" mat-raised-button (click)='openDialogQuiz("first")'> <mat-icon> <mat-icon>arrow_forward</mat-icon></mat-icon> Start quiz</button>
-        <div *ngIf="dialogClosed">
           <br><br>
-          <mat-card>
-            <h2 style="text-align:center">Feedback: {{grade}}</h2>
-          </mat-card>
-        </div>
+          <mat-card class="feedback">
+            <span *ngIf="feedbackFirstTest">
+              <h2 style="text-align:center">Grade: {{feedbackFirstTest[0]}} </h2>
+              <h2 style="text-align:center">Correct answers: {{feedbackFirstTest[1]}} </h2>
+              <h2 style="text-align:center">Wrong answers: {{feedbackFirstTest[2]}} </h2>
+            </span>
+            <span *ngIf="!feedbackFirstTest">
+              <h2 style="text-align:center"> Results are not available. Run the test first!</h2>
+            </span>
+          </mat-card>      
       </mat-expansion-panel>
 
       <mat-expansion-panel>
         <mat-expansion-panel-header class="subtitle">
           <mat-panel-title class="week">Week 9</mat-panel-title>
-          <mat-panel-description class="description">Evaluate app 2</mat-panel-description>
+          <mat-panel-description class="description">Second evaluation</mat-panel-description>
         </mat-expansion-panel-header>
         <button [disabled]="getOneAttemptFromLocalStorage(username, 'secondEvaluation')" class="startQuizButton" mat-raised-button (click)='openDialogQuiz("second")'> <mat-icon> <mat-icon>arrow_forward</mat-icon></mat-icon> Start quiz</button>
-        <div *ngIf="dialogClosed">
-          <br><br>
-          <mat-card>
-            <h2 style="text-align:center">Feedback: {{grade}}</h2>
+        <br><br>  
+        <mat-card class="feedback">
+            <span *ngIf="feedbackSecondTest">
+              <h2 style="text-align:center">Grade: {{feedbackSecondTest[0]}} </h2>
+              <h2 style="text-align:center">Correct answers: {{feedbackSecondTest[1]}}</h2>
+              <h2 style="text-align:center">Wrong answers: {{feedbackSecondTest[2]}}</h2>
+            </span>
+            <span *ngIf="!feedbackSecondTest">
+              <h2 style="text-align:center"> Results are not available. Run the test first!</h2>
+            </span>
           </mat-card>
-        </div>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
           <mat-expansion-panel-header class="subtitle">
             <mat-panel-title class="week">Week 14</mat-panel-title>
-            <mat-panel-description class="description">Evaluate final app</mat-panel-description>
+            <mat-panel-description class="description">Final evaluation</mat-panel-description>
           </mat-expansion-panel-header>
           <button [disabled]="getOneAttemptFromLocalStorage(username, 'finalEvaluation')" class="startQuizButton" mat-raised-button (click)='openDialogQuiz("final")'> <mat-icon> <mat-icon>arrow_forward</mat-icon></mat-icon> Start quiz</button>
-          <div *ngIf="dialogClosed">
-            <br><br>
-            <mat-card>
-              <h2 style="text-align:center">Feedback: {{grade}}</h2>
-            </mat-card>
-          </div>
+          <br><br>
+          <mat-card class="feedback">
+            <span *ngIf="feedbackFinalTest">
+              <h2 style="text-align:center">Grade: {{feedbackFinalTest[0]}} </h2>
+              <h2 style="text-align:center">Correct answers: {{feedbackFinalTest[1]}}</h2>
+              <h2 style="text-align:center">Wrong answers: {{feedbackFinalTest[2]}}</h2>
+            </span>
+            <span *ngIf="!feedbackFinalTest">
+              <h2 style="text-align:center"> Results are not available. Run the test first!</h2>
+            </span>
+          </mat-card>
         </mat-expansion-panel>
     </mat-accordion>
   </mat-expansion-panel>

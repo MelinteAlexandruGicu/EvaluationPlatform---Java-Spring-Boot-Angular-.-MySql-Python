@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "students")
+@Table(name = "students", uniqueConstraints={@UniqueConstraint(columnNames = {"email", "evaluationType"})})
 @NoArgsConstructor
 @Getter
 @Setter

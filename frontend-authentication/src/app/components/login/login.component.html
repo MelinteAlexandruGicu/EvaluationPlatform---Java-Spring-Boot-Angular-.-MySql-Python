@@ -54,10 +54,11 @@
                           </div>
                     </form>
                 </div>
-                <div *ngIf="isLoggedIn">
-                    Bine ai venit pe EvalPlatform!
-                </div>
             </div>
         </div>
     </div>
 </div>
+
+<app-board-admin *ngIf="isLoggedIn && showAdminBoard"></app-board-admin>
+<app-board-teacher *ngIf="isLoggedIn && showTeacherBoard"></app-board-teacher>
+<app-board-student *ngIf="isLoggedIn && showStudentBoard"></app-board-student>

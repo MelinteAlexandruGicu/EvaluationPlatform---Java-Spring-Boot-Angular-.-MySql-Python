@@ -103,7 +103,9 @@
               "node_modules/angular-bootstrap-md/scss/mdb-free.scss",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/apexcharts/dist/apexcharts.min.js"
+            ]
           }
         }
       }

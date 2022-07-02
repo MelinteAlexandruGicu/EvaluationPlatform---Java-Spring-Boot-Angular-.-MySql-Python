@@ -12,10 +12,14 @@
     border-left: 4px solid #402218 ;
     padding: 1em;
     margin: 1em auto;
+    font-size: 22px;
+    font-family: "Raleway";
 }
 
 .description {
     color: #402218;
+    font-size:18px;
+    font-family: "Raleway";
 }
 
 .mat-expansion-panel-header {
@@ -64,4 +68,15 @@ li{
     background-color: #402218;
     color: white;
     opacity: 0.6;
+}
+
+.feedback {
+    background-color: #dcb99b;
+    color: #402218;
+    border: 1px solid #402218;
+    width:40%;
+    font-size: 20px;
+    font-family: "Trirong", serif;
+    left:30%;
+    text-align: center;
 }

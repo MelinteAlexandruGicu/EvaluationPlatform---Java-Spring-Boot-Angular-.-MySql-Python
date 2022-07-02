@@ -13,9 +13,11 @@ export class QuizCreatorComponent implements OnInit {
   public answers!: FormArray;
   public questions!: FormArray;
   public saveSuccess:boolean = false;
+  public requestTrueOrFalse:boolean = false;
   public maxWrongs:boolean = false;
+  public stepper: any;
   public currentQuestion: number = 1;
-  public newWrongs: addWrongs[] = [];
+  
 
   constructor(private _fb: FormBuilder, private _uploadService: FileUploadService, private _evaluationStudent: EvaluationStudentService) { }
 
@@ -49,7 +51,6 @@ export class QuizCreatorComponent implements OnInit {
   public onSubmit() : void
   {
     let numberOfQuestions = this.questions.length;
-    console.log("Nr:  " + numberOfQuestions);
     let answers = [];
     let question = []
     let i = 0;
@@ -63,46 +64,28 @@ export class QuizCreatorComponent implements OnInit {
     }
 
     let serializedForm = JSON.stringify({"questions": question});
+    this._evaluationStudent.setContent(serializedForm);
 
-    // console.log("Submitted " + serializedForm + " questions")
     var downloadURI = document.createElement('a');
     downloadURI.download = this._evaluationStudent.getTypeOfEvaluation() + ".json";
     downloadURI.href = 'data:text/plain;charset=utf-8,' + serializedForm;
     downloadURI.click();
-    downloadURI.remove();
+    // downloadURI.remove();
     this.saveSuccess = true;
 }
-  public backQuestion() {
-    this.currentQuestion--;
-  }
+
+public backQuestion() {
+  this.currentQuestion--;
+}
 
   public nextQuestion() {
     console.log(this.currentQuestion);
-    if(this.currentQuestion < this.questions.length) {
-      this.currentQuestion++;
-    }
-    else {
+    this.currentQuestion++;
+    if(this.currentQuestion > this.questions.length) {
       this.onSubmit();
     }
-    
   }
-
-  public addNewWrongAnswer(): void {
-    if(this.newWrongs.length < 3) {
-      this.newWrongs.push(new addWrongs());
-    }
-    else {
-      console.log("Maximul de raspunsuri gresite a fost admis");
-      this.maxWrongs = true;
-    }
-  }
-  
-  public deleteWrongAnswer(): void{
-    this.newWrongs.pop();
-    this.maxWrongs = false;
-    }
 }
 
-export class addWrongs {
-}
+
 

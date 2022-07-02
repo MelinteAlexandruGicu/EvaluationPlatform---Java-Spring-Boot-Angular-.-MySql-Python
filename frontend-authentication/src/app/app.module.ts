@@ -35,6 +35,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { StartQuizComponent } from './components/start-quiz/start-quiz.component'
 import { MatCardModule } from '@angular/material/card'
 import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
+import { QuizUploadComponent } from './components/quiz-upload/quiz-upload.component'
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,8 @@ import { MatListModule } from '@angular/material/list';
     CourseUploadComponent,
     GradesCatalogComponent,
     QuizCreatorComponent,
-    StartQuizComponent
+    StartQuizComponent,
+    QuizUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,9 @@ import { MatListModule } from '@angular/material/list';
     MatDividerModule,
     MatDialogModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatRadioModule,
+    NgApexchartsModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
