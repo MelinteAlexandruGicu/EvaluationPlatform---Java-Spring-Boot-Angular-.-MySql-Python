@@ -1,7 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Student } from 'src/app/models/student';
 import { EvaluationStudentService } from 'src/app/services/evaluation-student.service';
 
@@ -12,23 +11,17 @@ import { EvaluationStudentService } from 'src/app/services/evaluation-student.se
 })
 
 export class GradesCatalogComponent implements OnInit {
-  public students: any = [];
-  public studentsFirst: any = [];
-  public studentsSecond: any = [];
-  public studentsFinal: any = [];
-  public tableStudents!: MatTableDataSource<Student>
-  public titles: string[] = ['nr', 'firstname', 'lastname', 'email', 'grade', 'evaluationType'];
+  @ViewChild('paginator') private paginator!: MatPaginator;
+  public finalEval: boolean = false;
   public firstEval: boolean = false;
   public secondEval: boolean = false;
-  public finalEval: boolean = false;
-  
-  @ViewChild('paginator') paginator!: MatPaginator;
-
-  constructor(private _evaluationStudent: EvaluationStudentService, private _cdref: ChangeDetectorRef) {
-  }
-
-  ngOnInit(): void {
-    this.getStudents();
+  public students: any = [];
+  public studentsFinal: any = [];
+  public studentsFirst: any = [];
+  public studentsSecond: any = [];
+  public tableStudents!: MatTableDataSource<Student>
+  public titles: string[] = ['nr', 'firstname', 'lastname', 'email', 'grade', 'evaluationType'];
+  constructor(private _evaluationStudent: EvaluationStudentService) {
   }
 
   public getAll() {
@@ -76,5 +69,9 @@ export class GradesCatalogComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  ngOnInit(): void {
+    this.getStudents();
   }
 }

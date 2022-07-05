@@ -7,10 +7,6 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  public isSuccessful: boolean = false;
-  public isSignUpFailed: boolean = false;
-  public hide: boolean = true;
   public errorMessage: string = '';
   public form: any = {
     username: null,
@@ -20,7 +16,9 @@ export class RegisterComponent implements OnInit {
     password: null,
     confirmPassword: null
   }
-
+  public hide: boolean = true;
+  public isSignUpFailed: boolean = false;
+  public isSuccessful: boolean = false;
   constructor(private _authService: AuthService) { }
 
   ngOnInit(): void {

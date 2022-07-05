@@ -58,7 +58,7 @@ public class AuthController {
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
-        logger.info("JWT LOGIN: " + jwt);
+        logger.info("JWT generated at login: " + jwt);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
@@ -84,7 +84,6 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new MessageResponse("Error -- Email is already in use!"));
         }
 
-        // Create new user's account
         User user = new User(registerRequest.getUsername(),
                 registerRequest.getFirstname(),
                 registerRequest.getLastname(),

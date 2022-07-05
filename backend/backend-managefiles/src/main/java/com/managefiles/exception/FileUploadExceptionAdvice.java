@@ -1,6 +1,6 @@
 package com.managefiles.exception;
 
-import com.managefiles.message.ResponseMessage;
+import com.managefiles.payload.ResponseMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

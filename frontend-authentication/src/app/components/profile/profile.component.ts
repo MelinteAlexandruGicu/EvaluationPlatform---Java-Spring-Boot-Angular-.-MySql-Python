@@ -26,9 +26,10 @@ export type ChartOptions = {
 })
 export class ProfileComponent implements OnInit {
   
-  @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions!: Partial<ChartOptions> | any;;
+  @ViewChild("chart") private chart!: ChartComponent;
+  public chartOptions!: Partial<ChartOptions> | any;
   public currentUser: any;
+
   constructor(private _token: TokenStorageService, private _authService: AuthService) { 
     this.chartOptions = {
       series: [
@@ -61,6 +62,7 @@ export class ProfileComponent implements OnInit {
       },
     };
   }
+
   ngOnInit(): void {
     this.currentUser = this._token.getUser();
     console.log(this.currentUser)
@@ -69,4 +71,6 @@ export class ProfileComponent implements OnInit {
   public updateUser(id:number, username:string) {
     this._authService.updateUserUsername(id, username);
   }
+
+;
 }

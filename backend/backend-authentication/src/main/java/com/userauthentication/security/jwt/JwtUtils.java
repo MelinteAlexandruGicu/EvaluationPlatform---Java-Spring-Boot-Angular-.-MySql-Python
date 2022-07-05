@@ -22,6 +22,7 @@ public class JwtUtils {
 
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        logger.info("Data de expirare" + new Date((new Date()).getTime() + jwtExpirationMs).toString());
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())

@@ -30,15 +30,15 @@ const routes: Routes = [
   },
   {
     path:'student', component: BoardStudentComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path:'admin', component: BoardAdminComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path:'teacher', component: BoardTeacherComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   }
 ];
 

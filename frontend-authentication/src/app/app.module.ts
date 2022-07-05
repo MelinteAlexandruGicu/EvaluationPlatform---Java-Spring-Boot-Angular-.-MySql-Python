@@ -38,7 +38,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { QuizUploadComponent } from './components/quiz-upload/quiz-upload.component'
 import { NgApexchartsModule } from 'ng-apexcharts';
-
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +82,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     MatRadioModule,
     NgApexchartsModule,
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

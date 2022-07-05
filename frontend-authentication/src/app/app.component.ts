@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from './services/token-storage.service';
-import { trigger, transition, group, query, style, animate } from '@angular/animations';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-root',
@@ -19,14 +19,18 @@ export class AppComponent implements OnInit {
   public email?: string;
   public href: string = "";
 
-  constructor(private tokenStorageService: TokenStorageService, private router: Router) { }
+  constructor(private _tokenStorageService: TokenStorageService, private _router: Router, private _jwtHelper: JwtHelperService) { }
 
   ngOnInit(): void {
-    this.href = this.router.url;
-    console.log(this.href);
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    this.href = this._router.url;
+    this.isLoggedIn = !!this._tokenStorageService.getToken();
     if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
+      if (this._jwtHelper.isTokenExpired(this._tokenStorageService.getToken() as any)) {
+        console.log("A expirat tokenul");
+        this.logout();
+        this._router.navigate(['/login']);
+      } 
+      const user = this._tokenStorageService.getUser();
       this.roles = user.roles;
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showTeacherBoard = this.roles.includes('ROLE_TEACHER');
@@ -37,7 +41,7 @@ export class AppComponent implements OnInit {
   }
 
   public logout(): void {
-    this.tokenStorageService.logout();
+    this._tokenStorageService.logout();
     window.location.reload();
   }
 }

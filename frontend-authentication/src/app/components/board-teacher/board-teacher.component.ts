@@ -1,9 +1,6 @@
-import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { EvaluationStudentService } from 'src/app/services/evaluation-student.service';
-import { FileUploadService } from 'src/app/services/file-upload.service';
 import { QuizCreatorComponent } from '../quiz-creator/quiz-creator.component';
 
 @Component({
@@ -14,7 +11,7 @@ import { QuizCreatorComponent } from '../quiz-creator/quiz-creator.component';
 export class BoardTeacherComponent implements OnInit {
   public panelOpenState: boolean = true;
   public typeOfEvaluation: string = '';
-  constructor(public dialog: MatDialog, private _uploadService: FileUploadService, private _evaluationStudent: EvaluationStudentService) { }
+  constructor(public dialog: MatDialog, private _evaluationStudent: EvaluationStudentService) { }
 
   ngOnInit(): void {
   }

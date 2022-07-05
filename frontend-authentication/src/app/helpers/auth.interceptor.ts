@@ -1,8 +1,9 @@
-import { HTTP_INTERCEPTORS, HttpEvent } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { TokenStorageService } from '../services/token-storage.service';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
+import { throwError } from 'rxjs'
 
 const TOKEN_HEADER_KEY = 'Authorization';    
 
@@ -12,12 +13,24 @@ export class AuthInterceptor implements HttpInterceptor {
 
   // method to inspect and transform HTTP requests before they are sent to server.
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let authReq = req;
+    let authorizationReq = req;
     const token = this.token.getToken();
     if (token != null) {
-      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+      authorizationReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
     }
-    return next.handle(authReq);
+    return next.handle(authorizationReq).pipe(
+    catchError(err => {
+        // onError
+        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+            console.log(err.status);
+            console.log(err.statusText);
+            if (err.status === 401) {
+                window.location.href = "/login";
+            }
+        }
+        return throwError(err);
+    })) as any;
   }
 }
 

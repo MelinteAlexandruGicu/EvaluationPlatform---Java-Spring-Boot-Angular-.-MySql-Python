@@ -1,8 +1,8 @@
 package com.managefiles.controller;
 
-import com.managefiles.message.ResponseFile;
-import com.managefiles.message.ResponseFileQuiz;
-import com.managefiles.message.ResponseMessage;
+import com.managefiles.payload.ResponseFile;
+import com.managefiles.payload.ResponseFileQuiz;
+import com.managefiles.payload.ResponseMessage;
 import com.managefiles.model.AppStorage;
 import com.managefiles.model.CoursesStorage;
 import com.managefiles.service.FileStorageService;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,7 +58,11 @@ public class FileController {
     public ResponseEntity<ResponseMessage> uploadQuiz(@RequestParam("file") MultipartFile file, @RequestParam String content) {
         String message;
         try {
-            fileStorageService.storeQuizzes(file, content);
+            System.out.println(content );
+            String encoded = new String(Base64.getEncoder().encode(content.getBytes(StandardCharsets.UTF_8)));
+            System.out.println(encoded);
+            fileStorageService.storeQuizzes(file, encoded);
+
             message = "Your Quiz (" + file.getOriginalFilename() + " has been saved)!";
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         } catch (Exception e) {

@@ -5,6 +5,7 @@ import com.userauthentication.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
+    private static final long serialVersionUID = 1L;
     private final Long id;
     private final String username;
     private final String firstname;

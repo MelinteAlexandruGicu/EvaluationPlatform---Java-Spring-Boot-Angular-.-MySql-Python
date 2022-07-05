@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EvaluationStudentService } from 'src/app/services/evaluation-student.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 
@@ -9,23 +9,25 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
   styleUrls: ['./quiz-creator.component.css']
 })
 export class QuizCreatorComponent implements OnInit {
-  public formGroup!: FormGroup;
   public answers!: FormArray;
+  public currentQuestion: number = 1;
+  public formGroup!: FormGroup;
   public questions!: FormArray;
   public saveSuccess:boolean = false;
-  public requestTrueOrFalse:boolean = false;
-  public maxWrongs:boolean = false;
   public stepper: any;
-  public currentQuestion: number = 1;
-  
+  constructor(private _fb: FormBuilder, private _evaluationStudent: EvaluationStudentService) { }
 
-  constructor(private _fb: FormBuilder, private _uploadService: FileUploadService, private _evaluationStudent: EvaluationStudentService) { }
+  public addItem(){
+    this.questions = this.formGroup.get('questions') as FormArray;
+    this.questions.push(this.init());
+  }
 
-  ngOnInit(): void {
-    this.formGroup = this._fb.group({
-      questions : this._fb.array([this.init()])
-    }) 
-    this.addItem();
+public backQuestion() {
+  this.currentQuestion--;
+}
+
+  public getQuestions() {
+    return (this.formGroup.get('questions') as FormArray).controls;
   }
 
   public init() {
@@ -39,13 +41,19 @@ export class QuizCreatorComponent implements OnInit {
     });
   }
 
-  public getQuestions() {
-    return (this.formGroup.get('questions') as FormArray).controls;
+  public nextQuestion() {
+    console.log(this.currentQuestion);
+    this.currentQuestion++;
+    if(this.currentQuestion > this.questions.length) {
+      this.onSubmit();
+    }
   }
 
-  public addItem(){
-    this.questions = this.formGroup.get('questions') as FormArray;
-    this.questions.push(this.init());
+  ngOnInit(): void {
+    this.formGroup = this._fb.group({
+      questions : this._fb.array([this.init()])
+    }) 
+    this.addItem();
   }
 
   public onSubmit() : void
@@ -73,18 +81,6 @@ export class QuizCreatorComponent implements OnInit {
     // downloadURI.remove();
     this.saveSuccess = true;
 }
-
-public backQuestion() {
-  this.currentQuestion--;
-}
-
-  public nextQuestion() {
-    console.log(this.currentQuestion);
-    this.currentQuestion++;
-    if(this.currentQuestion > this.questions.length) {
-      this.onSubmit();
-    }
-  }
 }
 
 

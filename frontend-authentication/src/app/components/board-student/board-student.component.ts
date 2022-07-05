@@ -13,24 +13,28 @@ import { StartQuizComponent } from '../start-quiz/start-quiz.component';
   styleUrls: ['./board-student.component.css']
 })
 export class BoardStudentComponent implements OnInit {
-  public panelOpenState: boolean = true;
   public appsInfos?: Observable<any>;
   public coursesInfos?: Observable<any>;
   public dialogClosed: boolean = false;
-  public first: boolean = false;
-  public second: boolean = false;
-  public final: boolean = false;
   public feedback: any;
   public feedbackFinalTest: any;
   public feedbackFirstTest: any;
   public feedbackSecondTest: any;
-  public username: string = '';
-  public typeOfEvaluation: string = '';
   public grade: number = 1;
-  
+  public panelOpenState: boolean = true;
+  public typeOfEvaluation: string = '';
+  public username: string = '';
   constructor(private _uploadService: FileUploadService, public dialog: MatDialog, private _handleQuestion: HandleQuestionService, private _tokenStorageService: TokenStorageService,
     private _evaluationStudent: EvaluationStudentService) { }
-  
+
+  public getFeedbackFromLocalStorage(username: string, evaluation: string) {
+    return localStorage.getItem('feedback' + evaluation + username);
+  }
+
+  public getOneAttemptFromLocalStorage(username: string, evaluation: string) {
+    return localStorage.getItem('oneAttempt' + evaluation + username);
+  }
+
   ngOnInit(): void {
     this.appsInfos = this._uploadService.viewAppsFromStorage();
     this.coursesInfos = this._uploadService.viewCoursesFromStorage();
@@ -111,14 +115,4 @@ export class BoardStudentComponent implements OnInit {
         
     });
   }
-
-  public getOneAttemptFromLocalStorage(username: string, evaluation: string) {
-    return localStorage.getItem('oneAttempt' + evaluation + username);
-  }
-
-  public getFeedbackFromLocalStorage(username: string, evaluation: string) {
-    return localStorage.getItem('feedback' + evaluation + username);
-  }
-
-  
 }

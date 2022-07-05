@@ -10,26 +10,25 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
   styleUrls: ['./quiz-upload.component.css']
 })
 export class QuizUploadComponent implements OnInit {
-  public selectedFiles?: FileList;
-  public currentFile?: File;
-  public message: string = '';
   public content: any;
+  public currentFile?: File;
   public fileReader !: FileReader;
+  public message: string = '';
   public quizzesInfos?: Observable<any>;
-  
-  constructor(private _uploadService: FileUploadService, private _evaluationStudent: EvaluationStudentService) { }
+  public selectedFiles?: FileList;
+  constructor(private _uploadService: FileUploadService) { }
 
   ngOnInit(): void {
     this.quizzesInfos = this._uploadService.viewQuizzesFromStorage();
   }
 
-  public selectFile(event: any): void {
-    this.selectedFiles = event.target.files;
-  }
-
   public removeQuiz(index: number): void {
     this._uploadService.deleteQuiz(index);
     window.location.reload();
+  }
+
+  public selectFile(event: any): void {
+    this.selectedFiles = event.target.files;
   }
 
   public uploadFile(): void {

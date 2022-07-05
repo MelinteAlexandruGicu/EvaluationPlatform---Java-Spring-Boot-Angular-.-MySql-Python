@@ -1,4 +1,4 @@
-import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -9,11 +9,10 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
   styleUrls: ['./app-upload.component.css']
 })
 export class AppUploadComponent implements OnInit {
-  public selectedFiles?: FileList;
   public currentFile?: File;
-  public message: string = '';
   public fileInfos?: Observable<any>;
-  
+  public message: string = '';
+  public selectedFiles?: FileList;
   constructor(private _uploadService: FileUploadService) { }
   
   ngOnInit(): void {

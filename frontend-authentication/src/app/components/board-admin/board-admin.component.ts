@@ -1,8 +1,6 @@
-import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { AuthService } from 'src/app/services/auth.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 export interface User {
   username: string;
@@ -18,15 +16,25 @@ export interface User {
 })
 
 export class BoardAdminComponent implements OnInit {
-  public users = [];
+  @ViewChild(MatTable)
+  private table!: MatTable<User>;
   public titles: string[] = ['nr', 'role', 'username', 'firstname', 'lastname', 'email', 'operation'];
-  constructor(private _authService: AuthService, private _tokenStorageService: TokenStorageService) { }
-  ngOnInit(): void {
-    this.getUsers();
+  public users = [];
+  constructor(private _authService: AuthService) { }
+
+  public editUserRole() {
+    console.log("Edit");
   }
 
-  @ViewChild(MatTable)
-  table!: MatTable<User>;
+  public removeUser(id: number, role: string) {
+    if(role != "ROLE_ADMIN") {
+      this._authService.deleteUser(id);
+      this.table.renderRows();
+      window.location.reload();
+    }
+    console.log("Nu se poate sterge admin");
+    alert("Nu se poate sterge un utilizator admin!");
+  }
 
   public getUsers() {
     this._authService.getUsers()
@@ -41,13 +49,7 @@ export class BoardAdminComponent implements OnInit {
       
   }
 
-  editUserRole() {
-    console.log("Edit");
-  }
-
-  removeUser(id: number) {
-    this._authService.deleteUser(id);
-    this.table.renderRows();
-    window.location.reload();
+  ngOnInit(): void {
+    this.getUsers();
   }
 }

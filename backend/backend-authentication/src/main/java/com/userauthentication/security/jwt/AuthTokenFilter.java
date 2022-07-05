@@ -1,6 +1,7 @@
 package com.userauthentication.security.jwt;
 
 import com.userauthentication.services.UserDetailsServiceImpl;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,11 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+@NoArgsConstructor
 public class AuthTokenFilter extends OncePerRequestFilter {
-    private final JwtUtils jwtUtils;
-    private final UserDetailsServiceImpl userDetailsService;
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
+    private JwtUtils jwtUtils;
+    private UserDetailsServiceImpl userDetailsService;
 
     public AuthTokenFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsService) {
         this.jwtUtils = jwtUtils;
@@ -33,7 +34,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         try {
             String jwt = parseJwt(request);
-            logger.info("JWT: " + jwt);
+            logger.info("JWT from request: " + jwt);
             if(jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -45,7 +46,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            logger.error("Can't set user authentication: {}", e);
+            logger.error("Can't set user authentication! Error: {}", e.getMessage());
         }
         filterChain.doFilter(request, response);
     }

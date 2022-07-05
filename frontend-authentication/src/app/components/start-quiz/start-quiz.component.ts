@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { EvaluationStudentService } from 'src/app/services/evaluation-student.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -12,26 +11,24 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
   styleUrls: ['./start-quiz.component.css']
 })
 export class StartQuizComponent implements OnInit {
-  public questions: any = [];
+  public content: any;
+  public correct: number  = 0;
   public currentQuestion: number = 0;
+  public email: string = '';
+  public firstname: string = '';
   public grade: number  = 1;
+  public incrementGrade: number = 0;
+  public questions: any = [];
   public timer: number  = 0;
   public interval$: any; // $ means observable
   public noTime: boolean = false;
-  public correct: number  = 0;
   public wrong: number  = 0;
   public quizDone: boolean = false;
   public username: string = '';
-  public firstname: string = '';
   public lastname: string = '';
   public typeOfEvaluation: string = '';
-  public email: string = '';
-  public content: any;
   public questionContent: Array<{"eval": string, "content": string}> = [];
-  public incrementGrade: number = 0;
-  
-
-  constructor(private _handleQuestion: HandleQuestionService, private _router: Router, private _tokenStorageService: TokenStorageService,
+  constructor(private _handleQuestion: HandleQuestionService, private _tokenStorageService: TokenStorageService,
               private _evaluationStudent: EvaluationStudentService, private _uploadService: FileUploadService) { }
 
   ngOnInit(): void {
@@ -54,7 +51,8 @@ export class StartQuizComponent implements OnInit {
       this.content = result;
       console.log(this.content)
       this.content.forEach( (element: any) => {
-          this.questionContent.push({"eval": element.name, "content": element.content});
+        console.log("decodat: " + atob(element.content))
+          this.questionContent.push({"eval": element.name, "content": atob(element.content)});
       });
       this.questionContent.forEach( (element: any) => {
         if(element.eval == data) {

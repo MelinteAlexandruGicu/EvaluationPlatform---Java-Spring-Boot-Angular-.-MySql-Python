@@ -1,7 +1,7 @@
 package com.evaluation.controller;
 
 import com.evaluation.model.Student;
-import com.evaluation.response.ResponseMessage;
+import com.evaluation.payload.response.ResponseMessage;
 import com.evaluation.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

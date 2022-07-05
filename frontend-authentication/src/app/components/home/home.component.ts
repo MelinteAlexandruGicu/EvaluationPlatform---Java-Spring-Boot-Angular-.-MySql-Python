@@ -7,8 +7,8 @@ import { formatDate } from '@angular/common'
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  today = new Date();
-  date  = '';
+  public date  = '';
+  public today = new Date();
   constructor() {
     this.date = formatDate(this.today, 'dd-MM-yyyy hh:mm:ss a', 'en-US');
   }

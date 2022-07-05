@@ -43,22 +43,22 @@
                             <br><br>
                             <a>Don't you have already an account? <a routerLink="/register">Register here</a></a>
                         </div>
-                        <div class="form-group">
-                            <div
-                              class="alert alert-danger"
-                              role="alert"
-                              *ngIf="f.submitted && isLoginFailed"
-                            >
-                              Login failed: {{ errorMessage }}
-                            </div>
-                          </div>
+                        
                     </form>
+                    <div class="form-group">
+                        <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+                          Login failed: {{ errorMessage }} 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="alert" *ngIf="isLoggedIn">
+    Login successfully
+</div>
 
-<app-board-admin *ngIf="isLoggedIn && showAdminBoard"></app-board-admin>
+<!-- <app-board-admin *ngIf="isLoggedIn && showAdminBoard"></app-board-admin>
 <app-board-teacher *ngIf="isLoggedIn && showTeacherBoard"></app-board-teacher>
-<app-board-student *ngIf="isLoggedIn && showStudentBoard"></app-board-student>
+<app-board-student *ngIf="isLoggedIn && showStudentBoard"></app-board-student> -->

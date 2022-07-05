@@ -34,7 +34,7 @@
     <ng-container matColumnDef="operation">
         <th mat-header-cell *matHeaderCellDef> Operation </th>
         <td mat-cell *matCellDef="let element"> 
-            <button mat-icon-button color="primary" style="float:right;" (click)="removeUser(element.id)" matSuffix> <mat-icon>delete</mat-icon>
+            <button  mat-icon-button color="primary" style="float:right;" (click)="removeUser(element.id, element.roles[0].name)" matSuffix> <mat-icon>delete</mat-icon>
             </button>   
             <!-- <button mat-icon-button color="primary" style="float:right;" (click)="editUserRole()" matSuffix> <mat-icon>edit</mat-icon>
             </button> -->
@@ -45,5 +45,11 @@
     <tr mat-row *matRowDef="let row; columns: titles;"></tr>
   </table>
 </div>
+
+<div class="addButton">
+  <button class="add" mat-button color="primary"> <mat-icon>add</mat-icon> Add teacher
+  </button> 
+</div>
+
   
   

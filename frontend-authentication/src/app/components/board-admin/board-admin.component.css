@@ -41,4 +41,22 @@ div {
     font-size:21px
 }
 
+.add {
+    color: #22120c;
+    background-color: #dcb99b;
+    border: 1px solid #402218;
+}
+
+
+
+.add:hover {
+    color: #ffdcc9;
+    background-color: #402218;
+}
+
+.addButton {
+    top:40%;
+    margin: 0 auto;
+}
+
     
