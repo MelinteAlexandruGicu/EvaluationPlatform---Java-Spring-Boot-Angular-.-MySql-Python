@@ -48,7 +48,6 @@ export class GradesCatalogComponent implements OnInit {
         }
     
         if(typeOfEvaluation === "finalEvaluation") {
-          console.log("aici")
           this.secondEval = false;
           this.firstEval = false;
           this.finalEval = true;

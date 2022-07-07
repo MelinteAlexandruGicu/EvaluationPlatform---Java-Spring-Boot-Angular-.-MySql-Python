@@ -16,8 +16,6 @@ export class StartQuizComponent implements OnInit {
   public currentQuestion: number = 0;
   public email: string = '';
   public firstname: string = '';
-  public grade: number  = 1;
-  public incrementGrade: number = 0;
   public questions: any = [];
   public timer: number  = 0;
   public interval$: any; // $ means observable
@@ -58,7 +56,6 @@ export class StartQuizComponent implements OnInit {
         if(element.eval == data) {
           this.questions = JSON.parse(element.content).questions;
           this.timer = this.questions.length * 60
-          this.incrementGrade = 9 / this.questions.length;
         };
       });
     });
@@ -75,7 +72,6 @@ export class StartQuizComponent implements OnInit {
 
   public evaluate(questionNr: number, answer: any, answersList: any) {
     if(Object.keys(answer).toString() == Object.keys(answersList[0]).toString()) {
-      this.grade += this.incrementGrade;
       this.correct++;
     }
     else {
@@ -89,7 +85,7 @@ export class StartQuizComponent implements OnInit {
       this.currentQuestion++;
     }
     
-    this._handleQuestion.setFeedback(this.grade, this.correct, this.wrong);
+    this._handleQuestion.setFeedback(this.correct, this.wrong);
   }
 
   public startTimer() {
@@ -111,10 +107,10 @@ export class StartQuizComponent implements OnInit {
       firstname: this.firstname,
       lastname: this.lastname,
       email: this.email,
-      grade: this.grade,
+      grade: 1,
       evaluationType: this.typeOfEvaluation
     };
-    this._evaluationStudent.saveToCatalog(student).subscribe(
+    this._evaluationStudent.saveToCatalog(student, this.correct, this.wrong).subscribe(
       response => {
         console.log(response);
       },

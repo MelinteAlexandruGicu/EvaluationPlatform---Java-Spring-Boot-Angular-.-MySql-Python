@@ -39,6 +39,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { QuizUploadComponent } from './components/quiz-upload/quiz-upload.component'
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import exporting from 'highcharts/modules/exporting.src';
+import windbarb from 'highcharts/modules/windbarb.src';
+ 
+export function highchartsModules() {
+  return [ exporting,windbarb ];
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,9 +89,10 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
     MatListModule,
     MatRadioModule,
     NgApexchartsModule,
+    ChartModule
   ],
   providers: [authInterceptorProviders, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-    JwtHelperService],
+    JwtHelperService, { provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

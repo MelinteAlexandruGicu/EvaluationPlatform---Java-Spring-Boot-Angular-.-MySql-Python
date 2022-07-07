@@ -20,9 +20,10 @@ td.mat-cell {
     padding-left:125px !important;
 }
 
-div {
+.users {
+    margin: 0 auto;
+    position: absolute;
     left:5%;
-    position: fixed;
 }
 
 .mat-icon-button {
@@ -56,7 +57,17 @@ div {
 
 .addButton {
     top:40%;
-    margin: 0 auto;
+}
+
+.alert {
+    background-color: #dcb99b;
+    color: #402218;
+    border: 1px solid #402218;
+    width:40%;
+    font-size: 20px;
+    font-family: "Trirong", serif;
+    left:30%;
+    text-align: center;
 }
 
     

@@ -22,6 +22,7 @@
         <div *ngIf="role == 'ROLE_ADMIN'"><b>Titulatura: </b>Administrator</div>
       </div>
       <br>
+      
       <button class="editButton" mat-stroked-button (click)="updateUser(currentUser.id, 'AlexandruMelinte')" color="accent">Edit profile</button>
   </div>
   <ng-template #loggedOut>
@@ -39,3 +40,4 @@
   ></apx-chart>
 </div> -->
  
+<div [chart]="chartAngular"  id="container"></div>
