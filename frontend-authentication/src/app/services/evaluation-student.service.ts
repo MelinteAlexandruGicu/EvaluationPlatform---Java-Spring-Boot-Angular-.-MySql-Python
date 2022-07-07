@@ -12,8 +12,9 @@ export class EvaluationStudentService {
   private questions: any;
   constructor(private _http: HttpClient) { }
 
-  public saveToCatalog(student: any): Observable<any> {
-    return this._http.post(`${this.API_URL}/add-student`, student);
+  public saveToCatalog(student: any, correct: number, wrong: number): Observable<any> {
+    console.log("correct: " +  correct + " wrong: " + wrong);
+    return this._http.post(this.API_URL + "/add-student/" + correct + "/" + wrong, student);
   }
 
   public getStudents(): Observable<any> {
@@ -22,6 +23,14 @@ export class EvaluationStudentService {
 
   public getStudentsByTypeOfEvaluation(typeOfEvaluation: string){
     return this._http.get(this.API_URL + "/student-eval-type/" + typeOfEvaluation);
+  }
+
+  public getFinalGrade(email: string){
+    return this._http.get(this.API_URL + "/student-email/" + email);
+  }
+
+  public getGrade(email: string, typeOfEvaluation: string){
+    return this._http.get(this.API_URL + "/student-email/" + email + "/" + typeOfEvaluation);
   }
 
   public setTypeOfEvaluation(evaluation: string) {

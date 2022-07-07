@@ -20,10 +20,15 @@ export class BoardStudentComponent implements OnInit {
   public feedbackFinalTest: any;
   public feedbackFirstTest: any;
   public feedbackSecondTest: any;
-  public grade: number = 1;
+  public gradeFirstEval: any;
+  public gradeSecondEval: any;
+  public gradeFinalEval: any;
+  public finalGrade: number = 1;
   public panelOpenState: boolean = true;
   public typeOfEvaluation: string = '';
   public username: string = '';
+  public email: string = '';
+
   constructor(private _uploadService: FileUploadService, public dialog: MatDialog, private _handleQuestion: HandleQuestionService, private _tokenStorageService: TokenStorageService,
     private _evaluationStudent: EvaluationStudentService) { }
 
@@ -35,20 +40,30 @@ export class BoardStudentComponent implements OnInit {
     return localStorage.getItem('oneAttempt' + evaluation + username);
   }
 
+  public getFinalGrade(email: string) {
+    this._evaluationStudent.getFinalGrade(email).subscribe(
+      data => {
+       this.finalGrade = Math.round(data as number);
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
   ngOnInit(): void {
     this.appsInfos = this._uploadService.viewAppsFromStorage();
     this.coursesInfos = this._uploadService.viewCoursesFromStorage();
     const user = this._tokenStorageService.getUser();
+    this.email = user.email;
+    this.getFinalGrade(this.email);
     this.username = user.username;
     let feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'firstEvaluation');
-    console.log(feedbackLocalStorage)
     if(feedbackLocalStorage != null){
       feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
       feedbackLocalStorage = feedbackLocalStorage.replace(']', '');
       this.feedbackFirstTest = feedbackLocalStorage.split(",") as Array<String>;
     }
     feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'secondEvaluation');
-    console.log(feedbackLocalStorage)
     if(feedbackLocalStorage != null){
       feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
       feedbackLocalStorage = feedbackLocalStorage.replace(']', '');
@@ -56,12 +71,47 @@ export class BoardStudentComponent implements OnInit {
     }
     
     feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'finalEvaluation');
-    console.log(feedbackLocalStorage)
     if(feedbackLocalStorage != null){
       feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
       feedbackLocalStorage = feedbackLocalStorage.replace(']', '');
       this.feedbackFinalTest = feedbackLocalStorage.split(",") as Array<String>;
     }
+  }
+
+  public getFirstGrade() {
+    this._evaluationStudent.getGrade(this.email, 'firstEvaluation')
+      .subscribe(
+        data => {
+          console.log(data);
+          this.gradeFirstEval = data;
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  public getSecondGrade() {
+    this._evaluationStudent.getGrade(this.email, 'secondEvaluation')
+      .subscribe(
+        data => {
+          console.log(data);
+          this.gradeSecondEval = data;
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  public getLastGrade() {
+    this._evaluationStudent.getGrade(this.email, 'finalEvaluation')
+      .subscribe(
+        data => {
+          console.log(data);
+          this.gradeFinalEval = data;
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   public openDialogQuiz(evaluation: string): void {
@@ -86,19 +136,20 @@ export class BoardStudentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogClosed = true;
+      this.getFirstGrade();
+      this.getSecondGrade();
+      this.getLastGrade();
       localStorage.setItem('oneAttempt' + this.typeOfEvaluation + this.username, JSON.stringify(this.dialogClosed));
       this.feedback = this._handleQuestion.getFeedback();
       localStorage.setItem('feedback' + this.typeOfEvaluation + this.username, JSON.stringify(this.feedback));
       
       let feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'firstEvaluation');
-      console.log(feedbackLocalStorage)
       if(feedbackLocalStorage != null){
         feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
         feedbackLocalStorage = feedbackLocalStorage.replace(']', '');
         this.feedbackFirstTest = feedbackLocalStorage.split(",") as Array<String>;
       }
       feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'secondEvaluation');
-      console.log(feedbackLocalStorage)
       if(feedbackLocalStorage != null){
         feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
         feedbackLocalStorage = feedbackLocalStorage.replace(']', '');
@@ -106,7 +157,6 @@ export class BoardStudentComponent implements OnInit {
       }
       
       feedbackLocalStorage = this.getFeedbackFromLocalStorage(this.username, 'finalEvaluation');
-      console.log(feedbackLocalStorage)
       if(feedbackLocalStorage != null){
         feedbackLocalStorage = feedbackLocalStorage.replace('[', '');
         feedbackLocalStorage = feedbackLocalStorage.replace(']', '');

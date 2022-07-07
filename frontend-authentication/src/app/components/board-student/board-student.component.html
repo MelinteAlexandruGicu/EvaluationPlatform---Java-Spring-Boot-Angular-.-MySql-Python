@@ -60,9 +60,9 @@
           <br><br>
           <mat-card class="feedback">
             <span *ngIf="feedbackFirstTest">
-              <h2 style="text-align:center">Grade: {{feedbackFirstTest[0]}} </h2>
-              <h2 style="text-align:center">Correct answers: {{feedbackFirstTest[1]}} </h2>
-              <h2 style="text-align:center">Wrong answers: {{feedbackFirstTest[2]}} </h2>
+              <h2 style="text-align:center">Grade: {{ gradeFirstEval }} </h2>
+              <h2 style="text-align:center">Correct answers: {{feedbackFirstTest[0]}} </h2>
+              <h2 style="text-align:center">Wrong answers: {{feedbackFirstTest[1]}} </h2>
             </span>
             <span *ngIf="!feedbackFirstTest">
               <h2 style="text-align:center"> Results are not available. Run the test first!</h2>
@@ -79,9 +79,9 @@
         <br><br>  
         <mat-card class="feedback">
             <span *ngIf="feedbackSecondTest">
-              <h2 style="text-align:center">Grade: {{feedbackSecondTest[0]}} </h2>
-              <h2 style="text-align:center">Correct answers: {{feedbackSecondTest[1]}}</h2>
-              <h2 style="text-align:center">Wrong answers: {{feedbackSecondTest[2]}}</h2>
+              <h2 style="text-align:center">Grade: {{gradeSecondEval}} </h2>
+              <h2 style="text-align:center">Correct answers: {{feedbackSecondTest[0]}}</h2>
+              <h2 style="text-align:center">Wrong answers: {{feedbackSecondTest[1]}}</h2>
             </span>
             <span *ngIf="!feedbackSecondTest">
               <h2 style="text-align:center"> Results are not available. Run the test first!</h2>
@@ -98,9 +98,9 @@
           <br><br>
           <mat-card class="feedback">
             <span *ngIf="feedbackFinalTest">
-              <h2 style="text-align:center">Grade: {{feedbackFinalTest[0]}} </h2>
-              <h2 style="text-align:center">Correct answers: {{feedbackFinalTest[1]}}</h2>
-              <h2 style="text-align:center">Wrong answers: {{feedbackFinalTest[2]}}</h2>
+              <h2 style="text-align:center">Grade: {{gradeFinalEval}} </h2>
+              <h2 style="text-align:center">Correct answers: {{feedbackFinalTest[0]}}</h2>
+              <h2 style="text-align:center">Wrong answers: {{feedbackFinalTest[1]}}</h2>
             </span>
             <span *ngIf="!feedbackFinalTest">
               <h2 style="text-align:center"> Results are not available. Run the test first!</h2>
@@ -108,6 +108,15 @@
           </mat-card>
         </mat-expansion-panel>
     </mat-accordion>
+    <br>
+    <mat-card class="feedback">
+        <h2 style="text-align:center"> Final grade: 
+          <span *ngIf="finalGrade != 0">{{ finalGrade }}</span>
+          <span *ngIf="finalGrade != 1 && finalGrade < 5">Not promoted</span>
+          <span *ngIf="finalGrade == 1">Not calculated yet</span>
+        </h2>
+      
+    </mat-card>
   </mat-expansion-panel>
 </mat-accordion>
 

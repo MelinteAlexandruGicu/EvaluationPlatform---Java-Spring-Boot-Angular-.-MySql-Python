@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
+import { interval } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 export interface User {
@@ -20,6 +21,9 @@ export class BoardAdminComponent implements OnInit {
   private table!: MatTable<User>;
   public titles: string[] = ['nr', 'role', 'username', 'firstname', 'lastname', 'email', 'operation'];
   public users = [];
+  public isAdmin: boolean = false;
+  public interval$: any;
+  public timer:number = 2;
   constructor(private _authService: AuthService) { }
 
   public editUserRole() {
@@ -32,8 +36,25 @@ export class BoardAdminComponent implements OnInit {
       this.table.renderRows();
       window.location.reload();
     }
-    console.log("Nu se poate sterge admin");
-    alert("Nu se poate sterge un utilizator admin!");
+    console.log("Can't delete an admin");
+    this.isAdmin = true;
+    this.interval$ = interval(1000).subscribe(
+      result => {
+        this.timer--;
+        if(this.timer === 0) {
+          this.isAdmin = false
+        }
+      });
+  }
+
+  public convertName(name: string) {
+    if (name == "ROLE_ADMIN")
+      return "Administrator";
+    if (name == "ROLE_TEACHER")
+      return "Teacher";
+    if (name == "ROLE_STUDENT")
+      return "Student";
+    return "NoRole";
   }
 
   public getUsers() {

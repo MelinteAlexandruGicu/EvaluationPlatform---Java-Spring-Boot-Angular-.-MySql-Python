@@ -19,8 +19,10 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping("/add-student")
-    public ResponseEntity<?> addStudent(@RequestBody Student student) {
+    @PostMapping("/add-student/{correct}/{wrong}")
+    public ResponseEntity<?> addStudent(@RequestBody Student student, @PathVariable Integer correct, @PathVariable Integer wrong) {
+        Double grade = Double.valueOf(correct * 9 / (correct + wrong) + 1);
+        student.setGrade(grade);
         studentService.saveStudent(student);
         return ResponseEntity.ok(new ResponseMessage("Student " + student.getFirstname() + " " + student.getLastname()
                 + " with grade " + student.getGrade() + " at evaluation " + student.getEvaluationType() + " was added successfully!"));
@@ -46,6 +48,42 @@ public class StudentController {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(students, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/student-email/{email}")
+    public ResponseEntity<Double> findByEmail(@PathVariable String email) {
+        try {
+            List<Student> students = studentService.getStudentsByEmail(email);
+            if (students.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            double finalGrade = 0;
+            if(students.size() == 3) {
+                for(Student student : students) {
+                    finalGrade += student.getGrade();
+                }
+                finalGrade = finalGrade / students.size();
+            }
+            System.out.println("FinalGrade: " + finalGrade);
+            return new ResponseEntity<>(finalGrade, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/student-email/{email}/{evaluationType}")
+    public ResponseEntity<Double> getGrade(@PathVariable String email, @PathVariable String evaluationType) {
+        try {
+            Student student = studentService.getStudentByEmailAndEvaluationType(email, evaluationType);
+            if (student == null) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(student.getGrade(), HttpStatus.OK);
+
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

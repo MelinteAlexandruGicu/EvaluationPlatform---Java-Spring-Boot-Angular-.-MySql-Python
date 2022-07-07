@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { TokenStorageService } from './services/token-storage.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -19,7 +19,29 @@ export class AppComponent implements OnInit {
   public email?: string;
   public href: string = "";
 
-  constructor(private _tokenStorageService: TokenStorageService, private _router: Router, private _jwtHelper: JwtHelperService) { }
+  constructor(private _tokenStorageService: TokenStorageService, private _router: Router, private _jwtHelper: JwtHelperService) {
+    this._router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        const user = this._tokenStorageService.getUser();
+        if(user?.roles) {
+          this.roles = user?.roles[0];
+        }
+        this.username = user?.username;
+        
+        if (this.username && this.roles && this.roles.includes("ROLE_STUDENT") && (ev.url.includes('/admin') || ev.url.includes('/teacher'))) {
+            this._router.navigate(['/home']);
+        }
+        
+        if (this.username && this.roles && this.roles.includes("ROLE_ADMIN") && (ev.url.includes('/student') || ev.url.includes('/teacher'))) {
+          this._router.navigate(['/home']);
+        }
+
+        if (this.username && this.roles && this.roles.includes("ROLE_TEACHER") && (ev.url.includes('/student') || ev.url.includes('/admin'))) {
+          this._router.navigate(['/home']);
+          }
+      } 
+    });
+}
 
   ngOnInit(): void {
     this.href = this._router.url;

@@ -26,4 +26,12 @@ public class StudentService {
     public List<Student> getStudentsByEvaluation(String evaluationType) {
         return this.studentRepository.findStudentByEvaluationType(evaluationType);
     }
+
+    public List<Student> getStudentsByEmail(String email) {
+        return this.studentRepository.findStudentByEmail(email);
+    }
+
+    public Student getStudentByEmailAndEvaluationType(String email, String evaluationType) {
+        return this.studentRepository.findStudentByEmailAndEvaluationType(email, evaluationType);
+    }
 }

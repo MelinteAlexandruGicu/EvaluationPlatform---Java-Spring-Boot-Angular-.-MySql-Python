@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class HandleQuestionService {
 
-  public grade: number = 1;
+  // public grade: number = 1;
   public correct: number = 0;
   public wrong: number = 0;
   public feedback: any;
@@ -18,12 +18,12 @@ export class HandleQuestionService {
   // }
 
   public getFeedback() {
-    this.feedback = [this.grade, this.correct, this.wrong]
+    this.feedback = [this.correct, this.wrong]
     return this.feedback;
   }
 
-  public setFeedback(grade: number, correct: number, wrong: number) {
-    this.grade = grade;
+  public setFeedback( correct: number, wrong: number) {
+    // this.grade = grade;
     this.correct = correct;
     this.wrong = wrong;
   }

@@ -50,3 +50,14 @@ a {
     font-size: 16px;
     font-family: "Trirong", serif;
 }
+
+.alert {
+    background-color: #dcb99b;
+    color: #402218;
+    border: 1px solid #402218;
+    width:40%;
+    font-size: 20px;
+    font-family: "Trirong", serif;
+    left:30%;
+    text-align: center;
+}
