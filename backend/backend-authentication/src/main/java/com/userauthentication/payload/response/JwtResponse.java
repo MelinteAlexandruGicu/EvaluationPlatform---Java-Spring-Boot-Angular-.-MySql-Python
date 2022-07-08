@@ -16,6 +16,9 @@ public class JwtResponse {
     private String email;
     private List<String> roles;
 
+    /*
+     *** Constructor
+     */
     public JwtResponse(String accessToken,
                        Long id,
                        String username,
@@ -28,6 +31,9 @@ public class JwtResponse {
         this.roles = roles;
     }
 
+    /*
+     *** Constructor
+     */
     public JwtResponse(String accessToken,
                        Long id,
                        String username,

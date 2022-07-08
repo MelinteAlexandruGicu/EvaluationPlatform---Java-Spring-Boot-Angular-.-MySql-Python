@@ -23,10 +23,12 @@ public class AppStorage {
     @Column(unique=true)
     private String name;
     private String type;
-
     @Lob
     private byte[] data;
 
+    /*
+     *** Constructor
+     */
     public AppStorage(String name, String type, byte[] data) {
         this.name = name;
         this.type = type;

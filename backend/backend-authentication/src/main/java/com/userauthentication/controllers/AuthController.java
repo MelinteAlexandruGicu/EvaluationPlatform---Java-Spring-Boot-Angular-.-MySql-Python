@@ -40,6 +40,9 @@ public class AuthController {
     private final JwtUtils jwtUtils;
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
+    /*
+     *** Constructor
+     */
     public AuthController(AuthenticationManager authenticationManager,
                           UserRepository userRepository,
                           RoleRepository roleRepository,
@@ -52,6 +55,11 @@ public class AuthController {
         this.jwtUtils = jwtUtils;
     }
 
+    /*
+     *** POST method responsible with login
+     * @Parameter - LoginRequest
+     * Not original, adapted for my requirements
+     */
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
@@ -74,6 +82,11 @@ public class AuthController {
                 roles));
     }
 
+    /*
+     *** POST method responsible with register
+     * @Parameter - RegisterRequest
+     * Not original, adapted for my requirements
+     */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
@@ -124,6 +137,9 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully in EvalPlatform!"));
     }
 
+    /*
+     *** GET method which retrieves all users
+     */
     @GetMapping("/users")
     public ResponseEntity<List<User>> allUsers() {
         try {
@@ -137,6 +153,10 @@ public class AuthController {
         }
     }
 
+    /*
+     *** GET method which delete an user
+     * @Parameter - Long - The id of the user
+     */
     @DeleteMapping("/user/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") Long id) {
         try {
@@ -147,6 +167,11 @@ public class AuthController {
         }
     }
 
+    /*
+     *** POST method which update an user's role
+     * @Parameter - Long - The id of the user
+     * @Parameter - Set<Role> - roles
+     */
     @PostMapping("/user-update-role/{id}")
     public ResponseEntity<MessageResponse> updateRole(@PathVariable("id") Long id, @RequestParam Set<Role> roles) {
         Optional<User> user = userRepository.findById(id).map(user1 -> {
@@ -156,6 +181,11 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User updated"));
     }
 
+    /*
+     *** POST method which update an user's username
+     * @Parameter - Long - The id of the user
+     * @Parameter - String - username
+     */
     @PostMapping("/user-update-username/{id}")
     public ResponseEntity<MessageResponse> updateUsername(@PathVariable("id") Long id, @RequestParam String username) {
         System.out.println(username);

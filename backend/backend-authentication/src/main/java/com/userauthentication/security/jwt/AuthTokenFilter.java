@@ -23,11 +23,21 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils;
     private UserDetailsServiceImpl userDetailsService;
 
+    /*
+    *** Constructor
+     */
     public AuthTokenFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsService) {
         this.jwtUtils = jwtUtils;
         this.userDetailsService = userDetailsService;
     }
 
+    /*
+     *** Method which parse, validate, load user details and check the access
+     * @Parameter - HttpServletRequest - the request
+     * @Parameter - HttpServletResponse - the response
+     * @Parameter - FilterChain - the filter
+     * Not original
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -51,6 +61,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    /*
+     *** Method which parse the JWT from request's header
+     * @Parameter - HttpServletRequest - the request
+     * Not original
+     */
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {

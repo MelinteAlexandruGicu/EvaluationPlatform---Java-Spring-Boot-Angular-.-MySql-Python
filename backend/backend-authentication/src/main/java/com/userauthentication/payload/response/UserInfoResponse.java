@@ -12,6 +12,9 @@ public class  UserInfoResponse {
     private String email;
     private List<String> roles;
 
+    /*
+     *** Constructor
+     */
     public UserInfoResponse(Long id, String username, String firstname, String lastname, String email, List<String> roles) {
         this.id = id;
         this.firstname = firstname;

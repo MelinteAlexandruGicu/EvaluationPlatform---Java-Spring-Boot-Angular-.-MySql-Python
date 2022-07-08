@@ -19,6 +19,13 @@ import java.util.Map;
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
+    /*
+     *** Method which handle the 401 Unauthorized exception
+     * @Parameter - HttpServletRequest - the request
+     * @Parameter - HttpServletResponse - the response
+     * @Parameter - AuthenticationException - the exception
+     * Not orginal, adapted
+     */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
             throws IOException, ServletException {

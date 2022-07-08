@@ -20,10 +20,12 @@ public class QuizStorage {
     private String name;
     private String type;
     private String content;
-
     @Lob
     private byte[] data;
 
+    /*
+     *** Constructor
+     */
     public QuizStorage(String name, String type, String content, byte[] data) {
         this.name = name;
         this.type = type;

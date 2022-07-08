@@ -20,9 +20,13 @@ public class JwtUtils {
     @Value("${MAG.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    /*
+     *** Method which generate the JWT implemented with Authentication Spring Security
+     * Not original
+     */
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-        logger.info("Data de expirare" + new Date((new Date()).getTime() + jwtExpirationMs).toString());
+        logger.info("Expiration date" + new Date((new Date()).getTime() + jwtExpirationMs).toString());
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
@@ -31,10 +35,17 @@ public class JwtUtils {
                 .compact();
     }
 
+    /*
+     *** Method which get username from JWT
+     */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
+    /*
+     *** Method which validate the JWT
+     * Not original
+     */
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

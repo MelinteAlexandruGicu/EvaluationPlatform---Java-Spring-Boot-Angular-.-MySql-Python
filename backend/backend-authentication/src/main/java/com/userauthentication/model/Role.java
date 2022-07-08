@@ -23,6 +23,9 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private ERole name;
 
+    /*
+    *** Constructor
+     */
     public Role(ERole name) {
         this.name = name;
     }

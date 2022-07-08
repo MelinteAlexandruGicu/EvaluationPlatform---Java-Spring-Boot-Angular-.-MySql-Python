@@ -28,6 +28,10 @@ public class FileController {
         this.fileStorageService = fileStorageService;
     }
 
+    /*
+    *** POST method which upload an app
+    * @Parameter - file -> RequestParam of MultipartFile type
+     */
     @PostMapping("/upload-app")
     public ResponseEntity<ResponseMessage> uploadApp(@RequestParam("file") MultipartFile file) {
         String message;
@@ -41,6 +45,10 @@ public class FileController {
         }
     }
 
+    /*
+     *** POST method which upload a course
+     * @Parameter - file -> RequestParam of MultipartFile type
+     */
     @PostMapping("/upload-course")
     public ResponseEntity<ResponseMessage> uploadCourse(@RequestParam("file") MultipartFile file) {
         String message;
@@ -54,6 +62,11 @@ public class FileController {
         }
     }
 
+    /*
+     *** POST method which upload a quiz
+     * @Parameter - file -> RequestParam of MultipartFile type
+     * @Parameter - content -> String which contains the content of the quiz created on front-end
+     */
     @PostMapping("/upload-quiz")
     public ResponseEntity<ResponseMessage> uploadQuiz(@RequestParam("file") MultipartFile file, @RequestParam String content) {
         String message;
@@ -71,6 +84,10 @@ public class FileController {
         }
     }
 
+    /*
+     *** GET method which retrieve all apps and help with download
+     * Not original
+     */
     @GetMapping("/files-app")
     public ResponseEntity<List<ResponseFile>> getListApp() {
         List<ResponseFile> files = fileStorageService.getAllApps().map(appStorage -> {
@@ -88,6 +105,10 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
+    /*
+     *** GET method which retrieves all courses and help with download
+     * Not original
+     */
     @GetMapping("/files-course")
     public ResponseEntity<List<ResponseFile>> getListCourse() {
         List<ResponseFile> files = fileStorageService.getAllCourses().map(courseStorage -> {
@@ -105,6 +126,10 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
+    /*
+     *** GET method which retrieves all quizzes and help with download
+     * Not original
+     */
     @GetMapping("/files-quizzes")
     public ResponseEntity<List<ResponseFileQuiz>> getListQuizzes() {
         List<ResponseFileQuiz> files = fileStorageService.getAllQuizzes().map(quizStorage -> {
@@ -124,6 +149,10 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
+    /*
+     *** DELETE method which delete a quiz
+     * @Parameter - id -> The id of the quiz
+     */
     @DeleteMapping("/files-quizzes/{id}")
     public ResponseEntity<HttpStatus> deleteQuiz(@PathVariable("id") Long id) {
         try {
@@ -134,6 +163,10 @@ public class FileController {
         }
     }
 
+    /*
+     *** GET method which retrieves an app
+     * @Parameter - id -> The id of the app
+     */
     @GetMapping("/files-app/{id}")
     public ResponseEntity<byte[]> getApp(@PathVariable String id) {
         AppStorage appStorage = fileStorageService.getApp(id);
@@ -142,6 +175,10 @@ public class FileController {
                 .body(appStorage.getData());
     }
 
+    /*
+     *** GET method which retrieves a course
+     * @Parameter - id -> The id of the course
+     */
     @GetMapping("/files-course/{id}")
     public ResponseEntity<byte[]> getCourse(@PathVariable String id) {
         CoursesStorage coursesStorage = fileStorageService.getCourse(id);
@@ -150,12 +187,20 @@ public class FileController {
                 .body(coursesStorage.getData());
     }
 
+    /*
+     *** DELETE method which delete an app
+     * @Parameter - id -> The id of the app
+     */
     @DeleteMapping(value = "/files-app/{id}")
     public ResponseEntity<?> deleteApp(@PathVariable String id) {
         fileStorageService.deleteApp(id);
         return ResponseEntity.noContent().build();
     }
 
+    /*
+     *** GET method which delete a course
+     * @Parameter - id -> The id of the course
+     */
     @DeleteMapping(value = "/files-course/{id}")
     public ResponseEntity<?> deleteCourse(@PathVariable String id) {
         fileStorageService.deleteCourse(id);

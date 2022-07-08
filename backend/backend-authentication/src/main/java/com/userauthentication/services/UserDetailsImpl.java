@@ -23,6 +23,9 @@ public class UserDetailsImpl implements UserDetails {
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
 
+    /*
+     *** Constructor
+     */
     public UserDetailsImpl(Long id, String username, String firstname, String lastname, String email, String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
@@ -34,6 +37,9 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
+    /*
+     *** Method which build the information about User
+     */
     public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))

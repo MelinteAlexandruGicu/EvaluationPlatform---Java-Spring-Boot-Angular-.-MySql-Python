@@ -27,6 +27,9 @@ public class Student {
     private String email;
     private String evaluationType;
 
+    /*
+     *** Constructor
+     */
     public Student(Double grade, String firstname, String lastname, String email, String evaluationType) {
         this.grade = grade;
         this.firstname = firstname;

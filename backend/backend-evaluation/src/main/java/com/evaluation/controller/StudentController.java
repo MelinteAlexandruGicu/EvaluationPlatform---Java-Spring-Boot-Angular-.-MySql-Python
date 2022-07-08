@@ -15,10 +15,19 @@ import java.util.List;
 public class StudentController {
     private final StudentService studentService;
 
+    /*
+     *** Constructor
+     */
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
+    /*
+     *** POST method which add a student and calculate the grade
+     * @Parameter - Student - student
+     * @Parameter - Integer - number of correct questions
+     * @Parameter - Integer - number of wrong questions
+     */
     @PostMapping("/add-student/{correct}/{wrong}")
     public ResponseEntity<?> addStudent(@RequestBody Student student, @PathVariable Integer correct, @PathVariable Integer wrong) {
         Double grade = Double.valueOf(correct * 9 / (correct + wrong) + 1);
@@ -28,6 +37,9 @@ public class StudentController {
                 + " with grade " + student.getGrade() + " at evaluation " + student.getEvaluationType() + " was added successfully!"));
     }
 
+    /*
+     *** GET method which retrieves all students
+     */
     @GetMapping("/get-students")
     public ResponseEntity<List<Student>> allStudents() {
         try {
@@ -40,6 +52,11 @@ public class StudentController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /*
+     *** GET method which retrieves all students which completed an evaluation
+     * @Parameter - String - type of evaluation
+     */
     @GetMapping("/student-eval-type/{evaluationType}")
     public ResponseEntity<List<Student>> findByEvaluationType(@PathVariable String evaluationType) {
         try {
@@ -53,6 +70,10 @@ public class StudentController {
         }
     }
 
+    /*
+     *** GET method which retrieves all students filtered by email
+     * @Parameter - String - email
+     */
     @GetMapping("/student-email/{email}")
     public ResponseEntity<Double> findByEmail(@PathVariable String email) {
         try {
@@ -75,6 +96,11 @@ public class StudentController {
         }
     }
 
+    /*
+     *** GET method which retrieves all students filtered by email and evaluation type
+     * @Paramater - String - email
+     * @Parameter - String - type of evaluation
+     */
     @GetMapping("/student-email/{email}/{evaluationType}")
     public ResponseEntity<Double> getGrade(@PathVariable String email, @PathVariable String evaluationType) {
         try {
@@ -88,7 +114,4 @@ public class StudentController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
 }
